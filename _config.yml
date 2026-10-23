@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f26/team02-f26-13
 owner: ucsb-cs156-f26
 repo_name: team02-f26-13
-pull_requests: [{"author":{"id":"U_kgDOCQ8Q4Q","is_bot":false,"login":"AkshajKashyap","name":"Akshaj Kashyap"},"headRefName":"ak-UCSBDiningCommonsMenuItem-backend","number":62,"title":"AK - Add UCSBDiningCommonsMenuItem backend CRUD API","url":"https://github.com/ucsb-cs156-f26/team02-f26-13/pull/62"}]
+pull_requests: [{"author":{"id":"U_kgDOBlkxBw","is_bot":false,"login":"brucegorman","name":"Bruce Gorman"},"headRefName":"kc-HelpRequest-backend","number":63,"title":"kc - copy HelpRequest backend from team01","url":"https://github.com/ucsb-cs156-f26/team02-f26-13/pull/63"},{"author":{"id":"U_kgDOCQ8Q4Q","is_bot":false,"login":"AkshajKashyap","name":"Akshaj Kashyap"},"headRefName":"ak-UCSBDiningCommonsMenuItem-backend","number":62,"title":"AK - Add UCSBDiningCommonsMenuItem backend CRUD API","url":"https://github.com/ucsb-cs156-f26/team02-f26-13/pull/62"}]
