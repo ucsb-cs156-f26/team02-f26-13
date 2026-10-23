@@ -1,6 +1,3 @@
-import { getDefaultNormalizer } from "@testing-library/react";
-import { ucsbDatesFixtures } from "./ucsbDatesFixtures";
-
 const recommendationRequestFixtures = {
   oneRecommendationRequest: {
     id: 1,
