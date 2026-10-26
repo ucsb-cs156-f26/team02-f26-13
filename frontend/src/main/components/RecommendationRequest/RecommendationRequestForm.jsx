@@ -130,20 +130,20 @@ function RecommendationRequestForm({
       </Form.Group>
 
       <Form.Group className="mb-3">
-  <Form.Check
-    data-testid={testIdPrefix + "-done"}
-    id="done"
-    type="checkbox"
-    label="Done"
-    isInvalid={Boolean(errors.done)}
-    {...register("done", {
-      required: "Done is required.",
-    })}
-  />
-  <Form.Control.Feedback type="invalid">
-    {errors.done?.message}
-  </Form.Control.Feedback>
-</Form.Group>
+        <Form.Check
+          data-testid={testIdPrefix + "-done"}
+          id="done"
+          type="checkbox"
+          label="Done"
+          isInvalid={Boolean(errors.done)}
+          {...register("done", {
+            required: "Done is required.",
+          })}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.done?.message}
+        </Form.Control.Feedback>
+      </Form.Group>
 
       <Button type="submit" data-testid={testIdPrefix + "-submit"}>
         {buttonLabel}
