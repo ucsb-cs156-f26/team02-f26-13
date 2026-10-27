@@ -203,6 +203,8 @@ describe("RecommendationRequestForm tests", () => {
     });
     fireEvent.click(screen.getByTestId(`${testId}-submit`));
 
-    await screen.findByText(/Max length 255 characters/);
+    expect(
+      await screen.findByText(/Max length 255 characters/),
+    ).toBeInTheDocument();
   });
 });
