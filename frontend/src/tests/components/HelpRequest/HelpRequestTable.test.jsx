@@ -125,7 +125,7 @@ describe("HelpRequestTable", () => {
     fireEvent.click(
       screen.getByTestId("HelpRequestTable-cell-row-1-col-Edit-button"),
     );
-    expect(navigate).toHaveBeenCalledExactlyOnceWith("/helprequests/edit/2");
+    expect(navigate).toHaveBeenCalledExactlyOnceWith("/helprequest/edit/2");
     expect(axiosMock.history.delete).toHaveLength(0);
   });
 

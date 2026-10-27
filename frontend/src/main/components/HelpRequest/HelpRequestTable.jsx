@@ -10,7 +10,7 @@ import {
 export default function HelpRequestTable({ helpRequests, currentUser }) {
   const navigate = useNavigate();
   const editCallback = (cell) => {
-    navigate(`/helprequests/edit/${cell.row.original.id}`);
+    navigate(`/helprequest/edit/${cell.row.original.id}`);
   };
   const deleteMutation = useBackendMutation(
     cellToAxiosParamsDelete,
