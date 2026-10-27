@@ -19,8 +19,8 @@ vi.mock("react-router", async () => {
 describe("RecommendationRequestTable tests", () => {
   const queryClient = new QueryClient();
 
-  const expectedHeaders = ["id", "Name", "Description"];
-  const expectedFields = ["id", "name", "description"];
+  const expectedHeaders = ["id", "Requester Email", "Professor Email", "Explaination", "Date Requested", "Date Needed", "Done"];
+  const expectedFields = ["id", "requesterEmail", "professorEmail", "explanation", "dateRequested", "dateNeeded", "done"];
   const testId = "RecommendationRequestTable";
 
   test("renders empty table correctly", () => {
@@ -78,18 +78,18 @@ describe("RecommendationRequestTable tests", () => {
     });
 
     expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "1",
+    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-requesterEmail`),
+    ).toHaveTextContent("req@ucsb.edu?");
+
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
       "2",
     );
     expect(
-      screen.getByTestId(`${testId}-cell-row-0-col-name`),
-    ).toHaveTextContent("Cristino's Bakery");
-
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
-      "3",
-    );
-    expect(
-      screen.getByTestId(`${testId}-cell-row-1-col-name`),
-    ).toHaveTextContent("Freebirds");
+      screen.getByTestId(`${testId}-cell-row-1-col-requesterEmail`),
+    ).toHaveTextContent("req@ucsb.edu?");
 
     const editButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Edit-button`,
@@ -132,18 +132,18 @@ describe("RecommendationRequestTable tests", () => {
     });
 
     expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "1",
+    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-requesterEmail`),
+    ).toHaveTextContent("req@ucsb.edu?");
+
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
       "2",
     );
     expect(
-      screen.getByTestId(`${testId}-cell-row-0-col-name`),
-    ).toHaveTextContent("Cristino's Bakery");
-
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
-      "3",
-    );
-    expect(
-      screen.getByTestId(`${testId}-cell-row-1-col-name`),
-    ).toHaveTextContent("Freebirds");
+      screen.getByTestId(`${testId}-cell-row-1-col-requesterEmail`),
+    ).toHaveTextContent("req@ucsb.edu?");
 
     expect(screen.queryByText("Delete")).not.toBeInTheDocument();
     expect(screen.queryByText("Edit")).not.toBeInTheDocument();
@@ -168,10 +168,10 @@ describe("RecommendationRequestTable tests", () => {
     // assert - check that the expected content is rendered
     expect(
       await screen.findByTestId(`${testId}-cell-row-0-col-id`),
-    ).toHaveTextContent("2");
+    ).toHaveTextContent("1");
     expect(
-      screen.getByTestId(`${testId}-cell-row-0-col-name`),
-    ).toHaveTextContent("Cristino's Bakery");
+      screen.getByTestId(`${testId}-cell-row-0-col-requesterEmail`),
+    ).toHaveTextContent("req@ucsb.edu?");
 
     const editButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Edit-button`,
@@ -183,7 +183,7 @@ describe("RecommendationRequestTable tests", () => {
 
     // assert - check that the navigate function was called with the expected path
     await waitFor(() =>
-      expect(mockedNavigate).toHaveBeenCalledWith("/recommendationRequests/edit/2"),
+      expect(mockedNavigate).toHaveBeenCalledWith("/recommendationRequest/edit/1"),
     );
   });
 
@@ -211,10 +211,10 @@ describe("RecommendationRequestTable tests", () => {
     // assert - check that the expected content is rendered
     expect(
       await screen.findByTestId(`${testId}-cell-row-0-col-id`),
-    ).toHaveTextContent("2");
+    ).toHaveTextContent("1");
     expect(
-      screen.getByTestId(`${testId}-cell-row-0-col-name`),
-    ).toHaveTextContent("Cristino's Bakery");
+      screen.getByTestId(`${testId}-cell-row-0-col-requesterEmail`),
+    ).toHaveTextContent("req@ucsb.edu?");
 
     const deleteButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Delete-button`,
@@ -227,6 +227,6 @@ describe("RecommendationRequestTable tests", () => {
     // assert - check that the delete endpoint was called
 
     await waitFor(() => expect(axiosMock.history.delete.length).toBe(1));
-    expect(axiosMock.history.delete[0].params).toEqual({ id: 2 });
+    expect(axiosMock.history.delete[0].params).toEqual({ id: 1 });
   });
 });
