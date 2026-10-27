@@ -18,7 +18,14 @@ vi.mock("react-router", async () => {
 describe("RecommendationRequestForm tests", () => {
   const queryClient = new QueryClient();
 
-  const expectedHeaders = ["Requester Email", "Professor Email", "Explaination", "Date Requested (iso format)", "Date Needed (iso format)", "Done"];
+  const expectedHeaders = [
+    "Requester Email",
+    "Professor Email",
+    "Explaination",
+    "Date Requested (iso format)",
+    "Date Needed (iso format)",
+    "Done",
+  ];
   const testId = "RecommendationRequestForm";
 
   test("renders correctly with no initialContents", async () => {
@@ -42,7 +49,11 @@ describe("RecommendationRequestForm tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
-          <RecommendationRequestForm initialContents={recommendationRequestFixtures.oneRecommendationRequest} />
+          <RecommendationRequestForm
+            initialContents={
+              recommendationRequestFixtures.oneRecommendationRequest
+            }
+          />
         </Router>
       </QueryClientProvider>,
     );
@@ -95,7 +106,9 @@ describe("RecommendationRequestForm tests", () => {
     expect(screen.getByText(/Done is required/)).toBeInTheDocument();
 
     const requesterEmailInput = screen.getByTestId(`${testId}-requesterEmail`);
-    fireEvent.change(requesterEmailInput, { target: { value: "a".repeat(256) } });
+    fireEvent.change(requesterEmailInput, {
+      target: { value: "a".repeat(256) },
+    });
     fireEvent.click(submitButton);
 
     await waitFor(() => {
@@ -144,7 +157,7 @@ describe("RecommendationRequestForm tests", () => {
     expect(screen.queryByText(/is required/)).not.toBeInTheDocument();
   });
 
-    test("shows a disabled id field and prefilled values when initialContents is passed", async () => {
+  test("shows a disabled id field and prefilled values when initialContents is passed", async () => {
     const initial = recommendationRequestFixtures.oneRecommendationRequest;
 
     render(
@@ -176,7 +189,7 @@ describe("RecommendationRequestForm tests", () => {
     expect(screen.queryByTestId(`${testId}-id`)).not.toBeInTheDocument();
   });
 
-    test("shows an error when the explanation is longer than 255 characters", async () => {
+  test("shows an error when the explanation is longer than 255 characters", async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
