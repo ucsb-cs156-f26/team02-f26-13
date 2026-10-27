@@ -102,4 +102,94 @@ describe("RecommendationRequestForm tests", () => {
       expect(screen.getByText(/Max length 255 characters/)).toBeInTheDocument();
     });
   });
+  test("calls submitAction with the entered values when the form is valid", async () => {
+    const submitAction = vi.fn();
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <RecommendationRequestForm submitAction={submitAction} />
+        </Router>
+      </QueryClientProvider>,
+    );
+
+    fireEvent.change(screen.getByTestId(`${testId}-requesterEmail`), {
+      target: { value: "req@ucsb.edu" },
+    });
+    fireEvent.change(screen.getByTestId(`${testId}-professorEmail`), {
+      target: { value: "prof@ucsb.edu" },
+    });
+    fireEvent.change(screen.getByTestId(`${testId}-explanation`), {
+      target: { value: "Grad school application" },
+    });
+    fireEvent.change(screen.getByTestId(`${testId}-dateRequested`), {
+      target: { value: "2022-01-03T00:00" },
+    });
+    fireEvent.change(screen.getByTestId(`${testId}-dateNeeded`), {
+      target: { value: "2023-01-03T00:00" },
+    });
+    fireEvent.click(screen.getByTestId(`${testId}-done`));
+    fireEvent.click(screen.getByTestId(`${testId}-submit`));
+
+    await waitFor(() => expect(submitAction).toHaveBeenCalled());
+
+    expect(submitAction.mock.calls[0][0]).toEqual({
+      requesterEmail: "req@ucsb.edu",
+      professorEmail: "prof@ucsb.edu",
+      explanation: "Grad school application",
+      dateRequested: "2022-01-03T00:00",
+      dateNeeded: "2023-01-03T00:00",
+      done: true,
+    });
+    expect(screen.queryByText(/is required/)).not.toBeInTheDocument();
+  });
+
+    test("shows a disabled id field and prefilled values when initialContents is passed", async () => {
+    const initial = recommendationRequestFixtures.oneRecommendationRequest;
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <RecommendationRequestForm initialContents={initial} />
+        </Router>
+      </QueryClientProvider>,
+    );
+
+    const idInput = await screen.findByTestId(`${testId}-id`);
+    expect(idInput).toHaveValue(String(initial.id));
+    expect(idInput).toBeDisabled();
+    expect(screen.getByTestId(`${testId}-requesterEmail`)).toHaveValue(
+      initial.requesterEmail,
+    );
+  });
+
+  test("does not show the id field when there are no initialContents", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <RecommendationRequestForm />
+        </Router>
+      </QueryClientProvider>,
+    );
+
+    expect(await screen.findByText(/Create/)).toBeInTheDocument();
+    expect(screen.queryByTestId(`${testId}-id`)).not.toBeInTheDocument();
+  });
+
+    test("shows an error when the explanation is longer than 255 characters", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <RecommendationRequestForm />
+        </Router>
+      </QueryClientProvider>,
+    );
+
+    fireEvent.change(screen.getByTestId(`${testId}-explanation`), {
+      target: { value: "a".repeat(256) },
+    });
+    fireEvent.click(screen.getByTestId(`${testId}-submit`));
+
+    await screen.findByText(/Max length 255 characters/);
+  });
 });
