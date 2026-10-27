@@ -11,6 +11,7 @@ export default function UCSBDiningCommonsMenuItemIndexPage() {
     // Stryker disable next-line all : don't test internal React Query caching
     ["/api/UCSBDiningCommonsMenuItem/all"],
     {
+      // Stryker disable next-line StringLiteral : Axios defaults to GET for an empty method
       method: "GET",
       url: "/api/UCSBDiningCommonsMenuItem/all",
     },

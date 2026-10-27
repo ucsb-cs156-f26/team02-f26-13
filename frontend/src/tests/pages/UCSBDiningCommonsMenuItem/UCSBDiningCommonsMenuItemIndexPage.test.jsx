@@ -72,6 +72,9 @@ describe("UCSBDiningCommonsMenuItemIndexPage tests", () => {
       "/diningcommonsmenuitem/create",
     );
 
+    const createButton = await screen.findByText("Create Menu Item");
+    expect(createButton).toHaveStyle({ float: "right" });
+
     await waitFor(() => {
       expect(
         axiosMock.history.get.some((request) => request.url === apiUrl),
