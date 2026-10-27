@@ -15,7 +15,10 @@ describe("HelpRequest routes", () => {
     renderWithUser(<App />, { route, currentUser });
     expect(
       screen.getByRole("heading", {
-        name: `HelpRequest ${page} page not yet implemented`,
+        name:
+          page === "create"
+            ? "Create New HelpRequest"
+            : `HelpRequest ${page} page not yet implemented`,
       }),
     ).toBeInTheDocument();
   });
@@ -46,7 +49,7 @@ describe("HelpRequest routes", () => {
     fireEvent.click(screen.getByRole("link", { name: "Create" }));
     expect(
       await screen.findByRole("heading", {
-        name: "HelpRequest create page not yet implemented",
+        name: "Create New HelpRequest",
       }),
     ).toBeInTheDocument();
     fireEvent.click(screen.getByRole("link", { name: "HelpRequest" }));
