@@ -28,6 +28,14 @@ function UCSBOrganizationForm({
               isInvalid={Boolean(errors.orgCode)}
               {...register("orgCode", {
                 required: "Org Code is required.",
+                minLength: {
+                  value: 3,
+                  message: "Org Code must be exactly 3 characters.",
+                },
+                maxLength: {
+                  value: 3,
+                  message: "Org Code must be exactly 3 characters.",
+                },
               })}
               disabled={Boolean(initialContents)}
             />

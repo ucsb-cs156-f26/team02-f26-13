@@ -52,6 +52,23 @@ describe("UCSBOrganizationForm tests", () => {
     expect(screen.getByText(/Organization Translation is required./)).toBeInTheDocument();
   });
 
+  test("Correct Error message on orgCode not 3 characters", async () => {
+    render(
+      <Router>
+        <UCSBOrganizationForm />
+      </Router>,
+    );
+    await screen.findByTestId("UCSBOrganizationForm-submit");
+    const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
+    const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
+
+    fireEvent.change(orgCodeField, { target: { value: "AB" } });
+    fireEvent.click(submitButton);
+
+    await screen.findByText(/Org Code must be exactly 3 characters./);
+    expect(screen.getByText(/Org Code must be exactly 3 characters./)).toBeInTheDocument();
+  });
+
   test("No Error messages on good input", async () => {
     const mockSubmitAction = vi.fn();
 
@@ -67,7 +84,7 @@ describe("UCSBOrganizationForm tests", () => {
     const orgTranslationField = screen.getByTestId("UCSBOrganizationForm-orgTranslation");
     const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
 
-    fireEvent.change(orgCodeField, { target: { value: "TEST" } });
+    fireEvent.change(orgCodeField, { target: { value: "ABC" } });
     fireEvent.change(orgTranslationShortField, { target: { value: "Test Org" } });
     fireEvent.change(orgTranslationField, { target: { value: "Test Organization" } });
     fireEvent.click(submitButton);
@@ -75,6 +92,7 @@ describe("UCSBOrganizationForm tests", () => {
     await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
 
     expect(screen.queryByText(/Org Code is required./)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Org Code must be exactly 3 characters./)).not.toBeInTheDocument();
     expect(screen.queryByText(/Organization Translation Short is required./)).not.toBeInTheDocument();
     expect(screen.queryByText(/Organization Translation is required./)).not.toBeInTheDocument();
   });
