@@ -6,9 +6,31 @@ import { currentUserFixtures } from "fixtures/currentUserFixtures";
 import AppNavbar from "main/components/Nav/AppNavbar";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import { expect } from "vitest";
+import { renderWithUser } from "tests/testutils/renderWithUser";
 
 describe("AppNavbar tests", () => {
   const queryClient = new QueryClient();
+
+  test.each([
+    ["ordinary user", currentUserFixtures.userOnly],
+    ["admin", currentUserFixtures.adminUser],
+  ])("shows the HelpRequest link for %s", (_name, currentUser) => {
+    renderWithUser(<AppNavbar currentUser={currentUser} />);
+    expect(screen.getByRole("link", { name: "HelpRequest" })).toHaveAttribute(
+      "href",
+      "/helprequest",
+    );
+  });
+
+  test.each([currentUserFixtures.notLoggedIn, null])(
+    "hides the HelpRequest link when logged out",
+    (currentUser) => {
+      renderWithUser(<AppNavbar currentUser={currentUser} />);
+      expect(
+        screen.queryByRole("link", { name: "HelpRequest" }),
+      ).not.toBeInTheDocument();
+    },
+  );
 
   test("renders correctly for regular logged in user", async () => {
     const currentUser = currentUserFixtures.userOnly;
