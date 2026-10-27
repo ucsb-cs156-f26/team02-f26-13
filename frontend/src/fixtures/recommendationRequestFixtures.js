@@ -25,6 +25,7 @@ const recommendationRequestFixtures = {
       explanation: "i might be quite homeless",
       dateRequested: "2022-04-03T12:00:00",
       dateNeeded: "2022-04-03T12:00:00",
+      done: false,
     },
     {
       id: 3,
@@ -33,6 +34,7 @@ const recommendationRequestFixtures = {
       explanation: "i might be quite homeless",
       dateRequested: "2022-04-03T12:00:00",
       dateNeeded: "2022-04-03T12:00:00",
+      done: false,
     },
   ],
 };
