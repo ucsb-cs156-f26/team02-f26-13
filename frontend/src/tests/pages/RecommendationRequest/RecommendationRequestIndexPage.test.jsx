@@ -105,13 +105,13 @@ describe("RecommendationRequestIndexPage tests", () => {
       screen.getByTestId(
         "RecommendationRequestTable-cell-row-0-col-requesterEmail",
       ),
-    ).toHaveTextContent("req@ucsb.edu?");
+    ).toHaveTextContent("req@ucsb.edu");
 
     const cell = (col) =>
       screen.getByTestId(`RecommendationRequestTable-cell-row-0-col-${col}`);
 
-    expect(cell("requesterEmail")).toHaveTextContent("req@ucsb.edu?");
-    expect(cell("professorEmail")).toHaveTextContent("prof@ucsb,edu");
+    expect(cell("requesterEmail")).toHaveTextContent("req@ucsb.edu");
+    expect(cell("professorEmail")).toHaveTextContent("prof@ucsb.edu");
     expect(cell("explanation")).toHaveTextContent("i might be quite homeless");
     expect(cell("dateRequested")).toHaveTextContent("2022-04-03T12:00:00");
     expect(cell("dateNeeded")).toHaveTextContent("2022-04-03T12:00:00");
