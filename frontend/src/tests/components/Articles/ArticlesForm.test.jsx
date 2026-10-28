@@ -1,5 +1,5 @@
 import { render, waitFor, fireEvent, screen } from "@testing-library/react";
-import ArticleForm from "main/components/Articles/ArticlesForm";
+import ArticlesForm from "main/components/Articles/ArticlesForm";
 import { articlesFixtures } from "fixtures/articlesFixtures";
 import { BrowserRouter as Router } from "react-router";
 import { expect } from "vitest";
@@ -13,11 +13,11 @@ vi.mock("react-router", async () => {
   };
 });
 
-describe("ArticleForm tests", () => {
+describe("ArticlesForm tests", () => {
   test("renders correctly", async () => {
     render(
       <Router>
-        <ArticleForm />
+        <ArticlesForm />
       </Router>,
     );
     await screen.findByText(/Title/);
@@ -32,23 +32,22 @@ describe("ArticleForm tests", () => {
   test("renders correctly when passing in an Article", async () => {
     render(
       <Router>
-        <ArticleForm initialContents={articlesFixtures.oneArticle} />
+        <ArticlesForm initialContents={articlesFixtures.oneArticle} />
       </Router>,
     );
     await screen.findByTestId("ArticlesForm-id");
     expect(screen.getByText(/Id/)).toBeInTheDocument();
     expect(screen.getByTestId("ArticlesForm-id")).toHaveValue("1");
-    );
   });
 
   test("Correct Error messsages on bad input", async () => {
     render(
       <Router>
-        <ArticleForm />
+        <ArticlesForm />
       </Router>,
     );
     await screen.findByTestId("ArticlesForm-email");
-    const submitButton = screen.getByTestId("ArticleForm-submit");
+    const submitButton = screen.getByTestId("ArticlesForm-submit");
 
 
     fireEvent.change(screen.getByTestId("ArticlesForm-email"), {
@@ -65,7 +64,7 @@ describe("ArticleForm tests", () => {
   test("Correct Error messsages on missing input", async () => {
     render(
       <Router>
-        <ArticleForm />
+        <ArticlesForm />
       </Router>,
     );
     await screen.findByTestId("ArticlesForm-submit");
@@ -77,7 +76,7 @@ describe("ArticleForm tests", () => {
     expect(screen.getByText(/Url is required./)).toBeInTheDocument();
     expect(screen.getByText(/Explanation is required./)).toBeInTheDocument();
     expect(screen.getByText(/Email is required./)).toBeInTheDocument();
-    expect(screen.getByText(/DateAdded is required./)).toBeInTheDocument();
+    expect(screen.getByText(/Date Added is required./)).toBeInTheDocument();
   });
 
   test("No Error messsages on good input", async () => {
@@ -85,18 +84,18 @@ describe("ArticleForm tests", () => {
 
     render(
       <Router>
-        <ArticleForm submitAction={mockSubmitAction} />
+        <ArticlesForm submitAction={mockSubmitAction} />
       </Router>,
     );
-    await screen.findByTestId("ArticleForm-title");
+    await screen.findByTestId("ArticlesForm-title");
 
-    const titleField = screen.getByTestId("ArticleForm-title");
-    const urlField = screen.getByTestId("ArticleForm-url");
-    const explanationField = screen.getByTestId("ArticleForm-localDateTime");
-    const emailField = screen.getByTestId("ArticleForm-email");
-    const dateAddedField = screen.getByTestId("ArticleForm-dateAdded");
+    const titleField = screen.getByTestId("ArticlesForm-title");
+    const urlField = screen.getByTestId("ArticlesForm-url");
+    const explanationField = screen.getByTestId("ArticlesForm-explanation");
+    const emailField = screen.getByTestId("ArticlesForm-email");
+    const dateAddedField = screen.getByTestId("ArticlesForm-dateAdded");
 
-    const submitButton = screen.getByTestId("ArticleForm-submit");
+    const submitButton = screen.getByTestId("ArticlesForm-submit");
 
     fireEvent.change(titleField, { target: { value: "Using testing-playground with React Testing Library" } });
     fireEvent.change(urlField, { target: { value: "https://dev.to/katieraby/using-testing-playground-with-react-testing-library-26j7" } });
@@ -111,21 +110,21 @@ describe("ArticleForm tests", () => {
     await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
 
     expect(
-      screen.queryByText(/email must be vaild email format./),
+      screen.queryByText(/Email must be vaild email format./),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByText(/dateAdded must be in ISO format/),
+      screen.queryByText(/Date must be in ISO format/),
     ).not.toBeInTheDocument();
   });
 
   test("that navigate(-1) is called when Cancel is clicked", async () => {
     render(
       <Router>
-        <ArticleForm />
+        <ArticlesForm />
       </Router>,
     );
-    await screen.findByTestId("ArticleForm-cancel");
-    const cancelButton = screen.getByTestId("ArticleForm-cancel");
+    await screen.findByTestId("ArticlesForm-cancel");
+    const cancelButton = screen.getByTestId("ArticlesForm-cancel");
 
     fireEvent.click(cancelButton);
 
