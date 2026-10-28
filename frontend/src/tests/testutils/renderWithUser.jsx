@@ -9,8 +9,10 @@ export function renderWithUser(
   { currentUser = currentUserFixtures.adminUser, route = "/" } = {},
 ) {
   const queryClient = new QueryClient({
-    defaultOptions: { queries: { retry: false, staleTime: Infinity } },
+    defaultOptions: { queries: { retry: false } },
   });
+  queryClient.setQueryDefaults(["current user"], { staleTime: Infinity });
+  queryClient.setQueryDefaults(["systemInfo"], { staleTime: Infinity });
   queryClient.setQueryData(["current user"], currentUser);
   queryClient.setQueryData(["systemInfo"], systemInfoFixtures.showingNeither);
   const result = render(
