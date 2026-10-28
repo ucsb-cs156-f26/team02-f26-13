@@ -47,12 +47,10 @@ describe("ArticlesForm tests", () => {
       </Router>,
     );
     await screen.findByTestId("ArticlesForm-email");
+    const emailField = screen.getByTestId("ArticlesForm-email");
     const submitButton = screen.getByTestId("ArticlesForm-submit");
 
-
-    fireEvent.change(screen.getByTestId("ArticlesForm-email"), {
-      target: { value: "bad-input" },
-    });
+    fireEvent.change(emailField, { target: { value: "bad-input" } });
     fireEvent.click(submitButton);
 
     await screen.findByText(/Email must be vaild email format/);
@@ -77,6 +75,44 @@ describe("ArticlesForm tests", () => {
     expect(screen.getByText(/Explanation is required./)).toBeInTheDocument();
     expect(screen.getByText(/Email is required./)).toBeInTheDocument();
     expect(screen.getByText(/Date Added is required./)).toBeInTheDocument();
+  });
+
+    test("Email error when there is extra text before a valid email", async () => {
+    render(
+      <Router>
+        <ArticlesForm />
+      </Router>,
+    );
+    await screen.findByTestId("ArticlesForm-email");
+    const emailField = screen.getByTestId("ArticlesForm-email");
+    const submitButton = screen.getByTestId("ArticlesForm-submit");
+
+    fireEvent.change(emailField, { target: { value: "x y@example.com" } });
+    fireEvent.click(submitButton);
+
+    await screen.findByText(/Email must be vaild email format/);
+    expect(
+      screen.getByText(/Email must be vaild email format/),
+    ).toBeInTheDocument();
+  });
+
+  test("Email error when there is extra text after a valid email", async () => {
+    render(
+      <Router>
+        <ArticlesForm />
+      </Router>,
+    );
+    await screen.findByTestId("ArticlesForm-email");
+    const emailField = screen.getByTestId("ArticlesForm-email");
+    const submitButton = screen.getByTestId("ArticlesForm-submit");
+
+    fireEvent.change(emailField, { target: { value: "a@example.com y" } });
+    fireEvent.click(submitButton);
+
+    await screen.findByText(/Email must be vaild email format/);
+    expect(
+      screen.getByText(/Email must be vaild email format/),
+    ).toBeInTheDocument();
   });
 
   test("No Error messsages on good input", async () => {
@@ -111,9 +147,6 @@ describe("ArticlesForm tests", () => {
 
     expect(
       screen.queryByText(/Email must be vaild email format./),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText(/Date must be in ISO format/),
     ).not.toBeInTheDocument();
   });
 

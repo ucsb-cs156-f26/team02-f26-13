@@ -130,10 +130,7 @@ function ArticlesForm( { initialContents, submitAction, buttonLabel = "Create" }
               isInvalid={Boolean(errors.dateAdded)}
               {...register("dateAdded", {
                 required: "Date Added is required.",
-                pattern: {
-                  value: isodate_regex,
-                  message: "Date must be in ISO format.",
-                },
+                pattern: isodate_regex,
               })}
             />
             <Form.Control.Feedback type="invalid">
