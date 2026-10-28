@@ -45,7 +45,9 @@ describe("UCSBOrganizationEditPage tests", () => {
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock.onGet("/api/ucsborganization", { params: { id: 17 } }).timeout();
+      axiosMock
+        .onGet("/api/ucsborganization", { params: { id: 17 } })
+        .timeout();
     });
 
     afterEach(() => {
@@ -86,13 +88,15 @@ describe("UCSBOrganizationEditPage tests", () => {
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock.onGet("/api/ucsborganization", { params: { id: 17 } }).reply(200, {
-        id: 17,
-        orgCode: "ZPR",
-        orgTranslationShort: "ZETA PHI RHO",
-        orgTranslation: "ZETA PHI RHO",
-        inactive: false,
-      });
+      axiosMock
+        .onGet("/api/ucsborganization", { params: { id: 17 } })
+        .reply(200, {
+          id: 17,
+          orgCode: "ZPR",
+          orgTranslationShort: "ZETA PHI RHO",
+          orgTranslation: "ZETA PHI RHO",
+          inactive: false,
+        });
       axiosMock.onPut("/api/ucsborganization").reply(200, {
         id: "17",
         orgCode: "SKY",
