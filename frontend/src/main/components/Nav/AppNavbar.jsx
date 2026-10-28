@@ -68,7 +68,7 @@ export default function AppNavbar({
                   <Nav.Link as={Link} to="/ucsbdates">
                     UCSB Dates
                   </Nav.Link>
-                  <Nav.Link as={Link} to="/ucsborganizations">
+                  <Nav.Link as={Link} to="/ucsborganization">
                     UCSBOrganization
                   </Nav.Link>
                 </>
