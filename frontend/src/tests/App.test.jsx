@@ -13,6 +13,12 @@ describe("HelpRequest routes", () => {
     axiosMock
       .onGet("/api/helprequests/all")
       .reply(200, helpRequestFixtures.threeHelpRequests);
+    axiosMock
+      .onGet("/api/helprequests")
+      .reply((config) => [
+        200,
+        { ...helpRequestFixtures.oneHelpRequest, id: Number(config.params.id) },
+      ]);
   });
   afterEach(() => {
     axiosMock.restore();
@@ -27,11 +33,7 @@ describe("HelpRequest routes", () => {
       currentUserFixtures.adminUser,
       "Create New HelpRequest",
     ],
-    [
-      "/helprequest/edit/17",
-      currentUserFixtures.adminUser,
-      "HelpRequest edit page not yet implemented",
-    ],
+    ["/helprequest/edit/17", currentUserFixtures.adminUser, "Edit HelpRequest"],
   ])("allows an authorized user at %s", (route, currentUser, heading) => {
     renderWithUser(<App />, { route, currentUser });
     expect(
@@ -76,9 +78,49 @@ describe("HelpRequest routes", () => {
     );
     expect(
       await screen.findByRole("heading", {
-        name: "HelpRequest edit page not yet implemented",
+        name: "Edit HelpRequest",
       }),
     ).toBeInTheDocument();
+  });
+
+  test("an edited record appears in the index and reopening Edit loads saved values", async () => {
+    let record = { ...helpRequestFixtures.oneHelpRequest };
+    axiosMock.onGet("/api/helprequests/all").reply(() => [200, [record]]);
+    axiosMock.onGet("/api/helprequests").reply(() => [200, record]);
+    axiosMock.onPut("/api/helprequests").reply((config) => {
+      record = { ...JSON.parse(config.data), id: Number(config.params.id) };
+      return [200, record];
+    });
+    renderWithUser(<App />, { route: "/helprequest" });
+    fireEvent.click(
+      await screen.findByTestId("HelpRequestTable-cell-row-0-col-Edit-button"),
+    );
+    expect(await screen.findByLabelText("Id")).toHaveValue("1");
+    fireEvent.change(screen.getByLabelText("Explanation"), {
+      target: { value: "Saved through the edit route" },
+    });
+    fireEvent.click(screen.getByLabelText("Solved"));
+    fireEvent.click(screen.getByRole("button", { name: "Update" }));
+    expect(
+      await screen.findByRole("heading", { name: "HelpRequests" }),
+    ).toBeInTheDocument();
+    await waitFor(() =>
+      expect(
+        screen.getByTestId("HelpRequestTable-cell-row-0-col-explanation"),
+      ).toHaveTextContent("Saved through the edit route"),
+    );
+    expect(
+      screen.getByTestId("HelpRequestTable-cell-row-0-col-solved"),
+    ).toHaveTextContent("Yes");
+    fireEvent.click(
+      screen.getByTestId("HelpRequestTable-cell-row-0-col-Edit-button"),
+    );
+    expect(await screen.findByLabelText("Explanation")).toHaveValue(
+      "Saved through the edit route",
+    );
+    expect(screen.getByLabelText("Solved")).toBeChecked();
+    expect(axiosMock.history.put).toHaveLength(1);
+    expect(axiosMock.history.put[0].params).toEqual({ id: "1" });
   });
 
   test("a created record appears in the index and can be deleted", async () => {
