@@ -25,7 +25,7 @@ Default.parameters = {
         status: 200,
       });
     }),
-    http.post("/api/ucsborganization/post", () => {
+    http.post("/api/ucsborganizations/post", () => {
       return HttpResponse.json({}, { status: 200 });
     }),
   ],
