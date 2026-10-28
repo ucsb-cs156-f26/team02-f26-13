@@ -2,7 +2,11 @@ import { Button, Form, Row, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 
-function ArticlesForm( { initialContents, submitAction, buttonLabel = "Create" } ) {
+function ArticlesForm({
+  initialContents,
+  submitAction,
+  buttonLabel = "Create",
+}) {
   // Stryker disable all
   const {
     register,
@@ -111,7 +115,7 @@ function ArticlesForm( { initialContents, submitAction, buttonLabel = "Create" }
                 pattern: {
                   value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                   message: "Email must be vaild email format.",
-                }
+                },
               })}
             />
             <Form.Control.Feedback type="invalid">

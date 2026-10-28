@@ -77,7 +77,7 @@ describe("ArticlesForm tests", () => {
     expect(screen.getByText(/Date Added is required./)).toBeInTheDocument();
   });
 
-    test("Email error when there is extra text before a valid email", async () => {
+  test("Email error when there is extra text before a valid email", async () => {
     render(
       <Router>
         <ArticlesForm />
@@ -133,11 +133,20 @@ describe("ArticlesForm tests", () => {
 
     const submitButton = screen.getByTestId("ArticlesForm-submit");
 
-    fireEvent.change(titleField, { target: { value: "Using testing-playground with React Testing Library" } });
-    fireEvent.change(urlField, { target: { value: "https://dev.to/katieraby/using-testing-playground-with-react-testing-library-26j7" } });
-    fireEvent.change(explanationField, { target: { value: "Helpful when we get to front end development" } });
+    fireEvent.change(titleField, {
+      target: { value: "Using testing-playground with React Testing Library" },
+    });
+    fireEvent.change(urlField, {
+      target: {
+        value:
+          "https://dev.to/katieraby/using-testing-playground-with-react-testing-library-26j7",
+      },
+    });
+    fireEvent.change(explanationField, {
+      target: { value: "Helpful when we get to front end development" },
+    });
     fireEvent.change(emailField, { target: { value: "phtcon@ucsb.edu" } });
-    
+
     fireEvent.change(dateAddedField, {
       target: { value: "2022-04-20T00:00:00" },
     });
