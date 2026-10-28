@@ -1,7 +1,7 @@
 import React from "react";
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
-import { ucsbOrganizationFixtures } from "fixtures/ucsbOrganizationsFixtures";
+import { ucsbOrganizationsFixtures } from "fixtures/ucsbOrganizationsFixtures";
 import { http, HttpResponse } from "msw";
 
 import UCSBOrganizationEditPage from "main/pages/UCSBOrganization/UCSBOrganizationEditPage";
@@ -27,7 +27,7 @@ Default.parameters = {
       });
     }),
     http.get("/api/ucsborganization", () => {
-      return HttpResponse.json(ucsbOrganizationFixtures.threeOrganizations[0], {
+      return HttpResponse.json(ucsbOrganizationsFixtures.threeOrganizations[0], {
         status: 200,
       });
     }),
