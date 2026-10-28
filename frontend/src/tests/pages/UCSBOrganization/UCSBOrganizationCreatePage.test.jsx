@@ -70,7 +70,9 @@ describe("UCSBOrganizationCreatePage tests", () => {
       inactive: false,
     };
 
-    axiosMock.onPost("/api/ucsborganizations/post").reply(202, ucsbOrganization);
+    axiosMock
+      .onPost("/api/ucsborganizations/post")
+      .reply(202, ucsbOrganization);
 
     render(
       <QueryClientProvider client={queryClient}>
