@@ -67,6 +67,10 @@ export default function AppNavbar({
                     UCSB Dates
                   </Nav.Link>
 
+                  <Nav.Link as={Link} to="/recommendationRequest">
+                    Recommendation Requests
+                  </Nav.Link>
+
                   <Nav.Link as={Link} to="/placeholder">
                     Placeholder
                   </Nav.Link>
