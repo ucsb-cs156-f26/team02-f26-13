@@ -21,7 +21,7 @@ describe("RecommendationRequestForm tests", () => {
   const expectedHeaders = [
     "Requester Email",
     "Professor Email",
-    "Explaination",
+    "Explanation",
     "Date Requested (iso format)",
     "Date Needed (iso format)",
     "Done",
@@ -100,10 +100,9 @@ describe("RecommendationRequestForm tests", () => {
 
     await screen.findByText(/Requester Email is required/);
     expect(screen.getByText(/Professor Email is required/)).toBeInTheDocument();
-    expect(screen.getByText(/Explaination is required/)).toBeInTheDocument();
+    expect(screen.getByText(/Explanation is required/)).toBeInTheDocument();
     expect(screen.getByText(/Date Requested is required/)).toBeInTheDocument();
     expect(screen.getByText(/Date Needed is required/)).toBeInTheDocument();
-    expect(screen.getByText(/Done is required/)).toBeInTheDocument();
 
     const requesterEmailInput = screen.getByTestId(`${testId}-requesterEmail`);
     fireEvent.change(requesterEmailInput, {

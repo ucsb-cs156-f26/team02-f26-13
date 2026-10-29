@@ -49,7 +49,7 @@ export default function RecommendationRequestTable({
       accessorKey: "professorEmail",
     },
     {
-      header: "Explaination",
+      header: "Explanation",
       accessorKey: "explanation",
     },
     {

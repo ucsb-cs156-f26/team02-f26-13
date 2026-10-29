@@ -94,7 +94,7 @@ describe("RecommendationRequestCreatePage tests", () => {
     const profEmailInput = screen.getByLabelText("Professor Email");
     expect(profEmailInput).toBeInTheDocument();
 
-    const explainInput = screen.getByLabelText("Explaination");
+    const explainInput = screen.getByLabelText("Explanation");
     expect(explainInput).toBeInTheDocument();
 
     const dateReqInput = screen.getByLabelText("Date Requested (iso format)");

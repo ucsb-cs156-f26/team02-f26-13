@@ -23,7 +23,7 @@ describe("RecommendationRequestTable tests", () => {
     "id",
     "Requester Email",
     "Professor Email",
-    "Explaination",
+    "Explanation",
     "Date Requested",
     "Date Needed",
     "Done",
