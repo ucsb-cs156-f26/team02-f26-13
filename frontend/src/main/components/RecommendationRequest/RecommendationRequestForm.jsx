@@ -74,14 +74,14 @@ function RecommendationRequestForm({
       </Form.Group>
 
       <Form.Group className="mb-3">
-        <Form.Label htmlFor="explanation">Explaination</Form.Label>
+        <Form.Label htmlFor="explanation">Explanation</Form.Label>
         <Form.Control
           data-testid={testIdPrefix + "-explanation"}
           id="explanation"
           type="text"
           isInvalid={Boolean(errors.explanation)}
           {...register("explanation", {
-            required: "Explaination is required.",
+            required: "Explanation is required.",
             maxLength: {
               value: 255,
               message: "Max length 255 characters",
@@ -135,21 +135,15 @@ function RecommendationRequestForm({
           id="done"
           type="checkbox"
           label="Done"
-          isInvalid={Boolean(errors.done)}
-          {...register("done", {
-            required: "Done is required.",
-          })}
+          {...register("done")}
         />
-        <Form.Control.Feedback type="invalid">
-          {errors.done?.message}
-        </Form.Control.Feedback>
       </Form.Group>
 
       <Button type="submit" data-testid={testIdPrefix + "-submit"}>
         {buttonLabel}
       </Button>
       <Button
-        variant="Secondary"
+        variant="secondary"
         onClick={() => navigate(-1)}
         data-testid={testIdPrefix + "-cancel"}
       >
