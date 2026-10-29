@@ -29,7 +29,6 @@ import MenuItemReviewEditPage from "main/pages/MenuItemReview/MenuItemReviewEdit
 
 import { useCurrentUser, hasRole } from "main/utils/useCurrentUser";
 
-import "./App.css";
 
 export default function App() {
   const { data: currentUser } = useCurrentUser();
