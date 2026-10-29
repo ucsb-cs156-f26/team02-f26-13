@@ -19,7 +19,6 @@ describe("HelpRequest routes", () => {
           page === "create"
             ? "Create New HelpRequest"
             : `HelpRequest ${page} page not yet implemented`,
-        name: `HelpRequest ${page} page not yet implemented`,
       }),
     ).toBeInTheDocument();
   });
@@ -51,7 +50,6 @@ describe("HelpRequest routes", () => {
     expect(
       await screen.findByRole("heading", {
         name: "Create New HelpRequest",
-        name: "HelpRequest create page not yet implemented",
       }),
     ).toBeInTheDocument();
     fireEvent.click(screen.getByRole("link", { name: "HelpRequest" }));
