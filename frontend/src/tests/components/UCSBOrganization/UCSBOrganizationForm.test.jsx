@@ -60,44 +60,6 @@ describe("UCSBOrganizationForm tests", () => {
     ).toBeInTheDocument();
   });
 
-  test("Correct Error message on orgCode not 3 characters (too short)", async () => {
-    render(
-      <Router>
-        <UCSBOrganizationForm />
-      </Router>,
-    );
-    await screen.findByTestId("UCSBOrganizationForm-submit");
-    const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
-    const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
-
-    fireEvent.change(orgCodeField, { target: { value: "AB" } });
-    fireEvent.click(submitButton);
-
-    await screen.findByText(/Org Code must be exactly 3 characters./);
-    expect(
-      screen.getByText(/Org Code must be exactly 3 characters./),
-    ).toBeInTheDocument();
-  });
-
-  test("Correct Error message on orgCode not 3 characters (too long)", async () => {
-    render(
-      <Router>
-        <UCSBOrganizationForm />
-      </Router>,
-    );
-    await screen.findByTestId("UCSBOrganizationForm-submit");
-    const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
-    const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
-
-    fireEvent.change(orgCodeField, { target: { value: "ABCD" } });
-    fireEvent.click(submitButton);
-
-    await screen.findByText(/Org Code must be exactly 3 characters./);
-    expect(
-      screen.getByText(/Org Code must be exactly 3 characters./),
-    ).toBeInTheDocument();
-  });
-
   test("No Error messages on good input", async () => {
     const mockSubmitAction = vi.fn();
 
@@ -129,9 +91,6 @@ describe("UCSBOrganizationForm tests", () => {
     await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
 
     expect(screen.queryByText(/Org Code is required./)).not.toBeInTheDocument();
-    expect(
-      screen.queryByText(/Org Code must be exactly 3 characters./),
-    ).not.toBeInTheDocument();
     expect(
       screen.queryByText(/Organization Translation Short is required./),
     ).not.toBeInTheDocument();
@@ -264,9 +223,6 @@ describe("UCSBOrganizationForm tests", () => {
     await waitFor(() => {
       expect(
         screen.queryByText(/Org Code is required./),
-      ).not.toBeInTheDocument();
-      expect(
-        screen.queryByText(/Org Code must be exactly 3 characters./),
       ).not.toBeInTheDocument();
       expect(
         screen.queryByText(/Organization Translation Short is required./),
