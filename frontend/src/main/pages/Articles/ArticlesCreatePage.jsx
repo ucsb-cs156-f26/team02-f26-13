@@ -13,7 +13,7 @@ export default function ArticlesCreatePage({ storybook = false }) {
       url: article.url,
       explanation: article.explanation,
       email: article.email,
-      dateAdded: article.dateAdded,
+      dateAdded: `${article.dateAdded}:00`,
     },
   });
 
