@@ -1,4 +1,3 @@
-
 import { fireEvent, render, waitFor, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter } from "react-router";
@@ -108,17 +107,15 @@ describe("MenuItemReviewIndexPage tests", () => {
       ).toHaveTextContent("1");
     });
 
-    expect(
-      screen.getByTestId(`${testId}-cell-row-1-col-id`),
-    ).toHaveTextContent("2");
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
+      "2",
+    );
 
-    expect(
-      screen.getByTestId(`${testId}-cell-row-2-col-id`),
-    ).toHaveTextContent("3");
+    expect(screen.getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent(
+      "3",
+    );
 
-    expect(
-      screen.queryByText(/Create MenuItemReview/),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText(/Create MenuItemReview/)).not.toBeInTheDocument();
   });
 
   test("renders empty table when backend is unavailable", async () => {
@@ -189,9 +186,7 @@ describe("MenuItemReviewIndexPage tests", () => {
     const queryClient = renderPage();
 
     await waitFor(() => {
-      expect(
-        queryClient.getQueryData(["/api/MenuItemReview/all"]),
-      ).toBeNull();
+      expect(queryClient.getQueryData(["/api/MenuItemReview/all"])).toBeNull();
     });
 
     expect(

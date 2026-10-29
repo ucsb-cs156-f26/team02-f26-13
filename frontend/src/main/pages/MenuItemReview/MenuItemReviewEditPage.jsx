@@ -1,4 +1,3 @@
-
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import { useParams, Navigate } from "react-router";
 import MenuItemReviewForm from "main/components/MenuItemReview/MenuItemReviewForm";
@@ -12,18 +11,14 @@ export default function MenuItemReviewEditPage({ storybook = false }) {
     data: menuItemReview,
     _error,
     _status,
-  } = useBackend(
-    [`/api/MenuItemReview?id=${id}`],
-    {
-      method: "GET",
-      url: "/api/MenuItemReview",
-      params: {
-        id,
-      },
+  } = useBackend([`/api/MenuItemReview?id=${id}`], {
+    method: "GET",
+    url: "/api/MenuItemReview",
+    params: {
+      id,
     },
-  );
+  });
 
-  
   const objectToAxiosPutParams = (menuItemReview) => ({
     url: "/api/MenuItemReview",
     method: "PUT",
@@ -39,18 +34,15 @@ export default function MenuItemReviewEditPage({ storybook = false }) {
     }),
   });
 
-
   const onSuccess = (menuItemReview) => {
     toast(
       `MenuItemReview Updated - id: ${menuItemReview.id} itemId: ${menuItemReview.itemId}`,
     );
   };
 
-  const mutation = useBackendMutation(
-    objectToAxiosPutParams,
-    { onSuccess },
-    [`/api/MenuItemReview?id=${id}`],
-  );
+  const mutation = useBackendMutation(objectToAxiosPutParams, { onSuccess }, [
+    `/api/MenuItemReview?id=${id}`,
+  ]);
 
   const { isSuccess } = mutation;
 

@@ -1,4 +1,3 @@
-
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import MenuItemReviewForm from "main/components/MenuItemReview/MenuItemReviewForm";
 import { Navigate } from "react-router";
@@ -24,11 +23,9 @@ export default function MenuItemReviewCreatePage({ storybook = false }) {
     );
   };
 
-  const mutation = useBackendMutation(
-    objectToAxiosParams,
-    { onSuccess },
-    ["/api/MenuItemReview/all"],
-  );
+  const mutation = useBackendMutation(objectToAxiosParams, { onSuccess }, [
+    "/api/MenuItemReview/all",
+  ]);
 
   const { isSuccess } = mutation;
 
