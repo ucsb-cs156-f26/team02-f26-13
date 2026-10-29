@@ -28,6 +28,7 @@ vi.mock("react-router", async (importOriginal) => {
     useParams: vi.fn(() => ({
       orgCode: "ZPR",
     })),
+    useNavigate: () => mockNavigate,
     Navigate: vi.fn((x) => {
       mockNavigate(x);
       return null;
@@ -198,7 +199,7 @@ describe("UCSBOrganizationEditPage tests", () => {
       expect(mockToast).toBeCalledWith(
         "UCSBOrganization Updated - orgCode: ZPR name: ZETA PHI RHO UPDATED",
       );
-      expect(mockNavigate).toBeCalledWith({ to: "/ucsborganizations" });
+      expect(mockNavigate).toBeCalledWith({ to: "/ucsborganization" });
 
       expect(axiosMock.history.put.length).toBe(1);
       expect(axiosMock.history.put[0].params).toEqual({ orgCode: "ZPR" });

@@ -136,7 +136,7 @@ describe("UCSBOrganizationIndexPage tests", () => {
       .reply(200, ucsbOrganizationsFixtures.threeOrganizations);
     axiosMock
       .onDelete("/api/ucsborganizations")
-      .reply(200, "UCSBOrganization with id ZPR was deleted");
+      .reply(200, "UCSBOrganization with orgCode ZPR deleted");
 
     render(
       <QueryClientProvider client={queryClient}>
