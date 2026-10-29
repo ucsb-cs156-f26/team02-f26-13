@@ -1,4 +1,4 @@
-import { fireEvent, screen, waitFor } from "@testing-library/react";
+  import { fireEvent, screen, waitFor } from "@testing-library/react";
 import App from "../App";
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
 import { renderWithUser } from "tests/testutils/renderWithUser";
