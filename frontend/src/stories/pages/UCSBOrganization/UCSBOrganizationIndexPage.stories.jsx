@@ -61,8 +61,11 @@ ThreeItemsAdminUser.parameters = {
     http.get("/api/ucsborganizations/all", () => {
       return HttpResponse.json(ucsbOrganizationsFixtures.threeOrganizations);
     }),
-    http.delete("/api/ucsborganization", () => {
-      return HttpResponse.json({}, { status: 200 });
+    http.delete("/api/ucsborganizations", () => {
+      return HttpResponse.json(
+        { message: "UCSBOrganization deleted successfully" },
+        { status: 200 },
+      );
     }),
   ],
 };
