@@ -63,7 +63,7 @@ describe("UCSBOrganizationIndexPage tests", () => {
       expect(screen.getByText(/Create UCSBOrganization/)).toBeInTheDocument();
     });
     const button = screen.getByText(/Create UCSBOrganization/);
-    expect(button).toHaveAttribute("href", "/ucsborganizations/create");
+    expect(button).toHaveAttribute("href", "/ucsborganization/create");
     expect(button).toHaveAttribute("style", "float: right;");
   });
 
@@ -84,15 +84,15 @@ describe("UCSBOrganizationIndexPage tests", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByTestId(`${testId}-cell-row-0-col-id`),
-      ).toHaveTextContent("1");
+        screen.getByTestId(`${testId}-cell-row-0-col-orgCode`),
+      ).toHaveTextContent("ZPR");
     });
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
-      "2",
-    );
-    expect(screen.getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent(
-      "3",
-    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-1-col-orgCode`),
+    ).toHaveTextContent("SKY");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-2-col-orgCode`),
+    ).toHaveTextContent("OSLI");
 
     expect(
       screen.queryByText(/Create UCSBOrganization/),
@@ -124,7 +124,7 @@ describe("UCSBOrganizationIndexPage tests", () => {
     restoreConsole();
 
     expect(
-      screen.queryByTestId(`${testId}-cell-row-0-col-id`),
+      screen.queryByTestId(`${testId}-cell-row-0-col-orgCode`),
     ).not.toBeInTheDocument();
   });
 
@@ -135,8 +135,8 @@ describe("UCSBOrganizationIndexPage tests", () => {
       .onGet("/api/ucsborganizations/all")
       .reply(200, ucsbOrganizationsFixtures.threeOrganizations);
     axiosMock
-      .onDelete("/api/ucsborganization")
-      .reply(200, "UCSBOrganization with id 1 was deleted");
+      .onDelete("/api/ucsborganizations")
+      .reply(200, "UCSBOrganization with id ZPR was deleted");
 
     render(
       <QueryClientProvider client={queryClient}>
@@ -148,13 +148,13 @@ describe("UCSBOrganizationIndexPage tests", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByTestId(`${testId}-cell-row-0-col-id`),
+        screen.getByTestId(`${testId}-cell-row-0-col-orgCode`),
       ).toBeInTheDocument();
     });
 
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
-      "1",
-    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-orgCode`),
+    ).toHaveTextContent("ZPR");
 
     const deleteButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Delete-button`,
@@ -165,7 +165,7 @@ describe("UCSBOrganizationIndexPage tests", () => {
 
     await waitFor(() => {
       expect(mockToast).toBeCalledWith(
-        "UCSBOrganization with id 1 was deleted",
+        "UCSBOrganization with id ZPR was deleted",
       );
     });
   });

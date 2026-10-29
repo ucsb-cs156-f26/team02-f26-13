@@ -28,8 +28,8 @@ export default function UCSBOrganizationIndexPage() {
     error: _error,
     status: _status,
   } = useBackend(
-    ["/api/ucsborganizations/all"],
-    { method: "GET", url: "/api/ucsborganizations/all" },
+    ["/api/ucsborganization/all"],
+    { method: "GET", url: "/api/ucsborganization/all" },
     [],
   );
 
@@ -37,7 +37,7 @@ export default function UCSBOrganizationIndexPage() {
     <BasicLayout>
       <div className="pt-2">
         {createButton()}
-        <h1>UCSBOrganizations</h1>
+        <h1>UCSBOrganization</h1>
         <UCSBOrganizationTable
           organizations={organizations}
           currentUser={currentUser}
