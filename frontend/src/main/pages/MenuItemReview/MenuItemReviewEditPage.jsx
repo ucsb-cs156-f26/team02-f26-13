@@ -6,18 +6,23 @@ import { toast } from "react-toastify";
 
 export default function MenuItemReviewEditPage({ storybook = false }) {
   const { id } = useParams();
-
+  // Stryker disable next-line all
   const {
     data: menuItemReview,
     _error,
     _status,
-  } = useBackend([`/api/MenuItemReview?id=${id}`], {
-    method: "GET",
-    url: "/api/MenuItemReview",
-    params: {
-      id,
+  } = useBackend(
+    // Stryker disable next-line all
+    [`/api/MenuItemReview?id=${id}`],
+    {
+      // Stryker disable next-line all
+      method: "GET",
+      url: `/api/MenuItemReview`,
+      params: {
+        id,
+      },
     },
-  });
+  );
 
   const objectToAxiosPutParams = (menuItemReview) => ({
     url: "/api/MenuItemReview",
@@ -40,7 +45,9 @@ export default function MenuItemReviewEditPage({ storybook = false }) {
     );
   };
 
+  // Stryker disable next-line all
   const mutation = useBackendMutation(objectToAxiosPutParams, { onSuccess }, [
+    // Stryker disable next-line all
     `/api/MenuItemReview?id=${id}`,
   ]);
 

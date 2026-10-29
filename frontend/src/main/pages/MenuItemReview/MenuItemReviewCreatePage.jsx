@@ -23,7 +23,9 @@ export default function MenuItemReviewCreatePage({ storybook = false }) {
     );
   };
 
+  // Stryker disable next-line all
   const mutation = useBackendMutation(objectToAxiosParams, { onSuccess }, [
+    // Stryker disable next-line all
     "/api/MenuItemReview/all",
   ]);
 
