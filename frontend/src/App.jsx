@@ -3,9 +3,9 @@ import HomePage from "main/pages/HomePage";
 import ProfilePage from "main/pages/ProfilePage";
 import AdminUsersPage from "main/pages/AdminUsersPage";
 
-import RestaurantsIndexPage from "main/pages/Restaurants/RestaurantsIndexPage";
-import RestaurantsCreatePage from "main/pages/Restaurants/RestaurantsCreatePage";
-
+import RestaurantIndexPage from "main/pages/Restaurants/RestaurantIndexPage";
+import RestaurantCreatePage from "main/pages/Restaurants/RestaurantCreatePage";
+import RestaurantEditPage from "main/pages/Restaurants/RestaurantEditPage";
 
 import UCSBDatesIndexPage from "main/pages/UCSBDates/UCSBDatesIndexPage";
 import UCSBDatesCreatePage from "main/pages/UCSBDates/UCSBDatesCreatePage";
@@ -46,17 +46,26 @@ export default function App() {
             <Route exact path="/admin/users" element={<AdminUsersPage />} />
           </>
         )}
+        {hasRole(currentUser, "ROLE_USER") && (
+          <>
+            <Route
+              exact
+              path="/restaurants"
+              element={<RestaurantIndexPage />}
+            />
+          </>
+        )}
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
             <Route
               exact
               path="/restaurants/create"
-              element={<RestaurantsCreatePage />}
+              element={<RestaurantCreatePage />}
             />
             <Route
               exact
               path="/restaurants/edit/:id"
-              element={<RestaurantsEditPage />}
+              element={<RestaurantEditPage />}
             />
           </>
         )}
