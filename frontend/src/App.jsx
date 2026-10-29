@@ -15,9 +15,9 @@ import RecommendationRequestIndexPage from "main/pages/RecommendationRequest/Rec
 import RecommendationRequestCreatePage from "main/pages/RecommendationRequest/RecommendationRequestCreatePage";
 import RecommendationRequestEditPage from "main/pages/RecommendationRequest/RecommendationRequestEditPage";
 
-import ArticlesRequestIndexPage from "main/pages/Articles/ArticlesRequestIndexPage";
-import ArticlesRequestCreatePage from "main/pages/Articles/ArticlesRequestCreatePage";
-import ArticlesRequestEditPage from "main/pages/Articles/ArticlesRequestEditPage";
+import ArticlesIndexPage from "main/pages/Articles/ArticlesIndexPage";
+import ArticlesCreatePage from "main/pages/Articles/ArticlesCreatePage";
+import ArticlesEditPage from "main/pages/Articles/ArticlesEditPage";
 
 import PlaceholderIndexPage from "main/pages/Placeholder/PlaceholderIndexPage";
 import PlaceholderCreatePage from "main/pages/Placeholder/PlaceholderCreatePage";
@@ -135,20 +135,29 @@ function App() {
         </>
       )}
       {hasRole(currentUser, "ROLE_USER") && (
-        <Route exact path="/helprequest" element={<HelpRequestIndexPage />} />
+        <>
+          <Route exact path="/articles" element={<ArticlesIndexPage />} />
+        </>
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
           <Route
             exact
-            path="/recommendationRequest/edit/:id"
-            element={<RecommendationRequestEditPage />}
+            path="/articles/edit/:id"
+            element={<ArticlesEditPage />}
           />
           <Route
             exact
-            path="/recommendationRequest/create"
-            element={<RecommendationRequestCreatePage />}
+            path="/articles/create"
+            element={<ArticlesCreatePage />}
           />
+        </>
+      )}
+      {hasRole(currentUser, "ROLE_USER") && (
+        <Route exact path="/helprequest" element={<HelpRequestIndexPage />} />
+      )}
+      {hasRole(currentUser, "ROLE_ADMIN") && (
+        <>
           <Route
             exact
             path="/recommendationRequest/edit/:id"
