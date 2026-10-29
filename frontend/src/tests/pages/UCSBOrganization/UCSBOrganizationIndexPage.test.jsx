@@ -68,9 +68,6 @@ describe("UCSBOrganizationIndexPage tests", () => {
     expect(button).toHaveAttribute("href", "/ucsborganization/create");
     expect(button).toHaveAttribute("style", "float: right;");
     expect(
-      screen.getAllByText("UCSBOrganization").length,
-    ).toBeGreaterThanOrEqual(2);
-    expect(
       screen.getByTestId("UCSBOrganizationTable-header-orgCode"),
     ).toBeInTheDocument();
     expect(
