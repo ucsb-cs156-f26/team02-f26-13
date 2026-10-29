@@ -191,6 +191,20 @@ describe("AppNavbar tests", () => {
     expect(link.getAttribute("href")).toBe("/ucsbdates");
   });
 
+  test("renders the Dining Commons menu item link for logged-in users", () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar currentUser={currentUserFixtures.userOnly} />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    expect(
+      screen.getByRole("link", { name: "UCSBDiningCommonsMenuItem" }),
+    ).toHaveAttribute("href", "/diningcommonsmenuitem");
+  });
+
   test("renders the restaurants link correctly", async () => {
     const currentUser = currentUserFixtures.userOnly;
     const systemInfo = systemInfoFixtures.showingBoth;
@@ -233,6 +247,9 @@ describe("AppNavbar tests", () => {
     );
 
     expect(screen.queryByText("Restaurants")).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("UCSBDiningCommonsMenuItem"),
+    ).not.toBeInTheDocument();
     expect(screen.queryByText("UCSBDates")).not.toBeInTheDocument();
   });
 
