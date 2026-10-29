@@ -18,6 +18,9 @@ import PlaceholderEditPage from "main/pages/Placeholder/PlaceholderEditPage";
 import ArticlesIndexPage from "main/pages/Articles/ArticlesIndexPage";
 import ArticlesCreatePage from "main/pages/Articles/ArticlesCreatePage";
 import ArticlesEditPage from "main/pages/Articles/ArticlesEditPage";
+import HelpRequestIndexPage from "main/pages/HelpRequest/HelpRequestIndexPage";
+import HelpRequestCreatePage from "main/pages/HelpRequest/HelpRequestCreatePage";
+import HelpRequestEditPage from "main/pages/HelpRequest/HelpRequestEditPage";
 
 import { hasRole, useCurrentUser } from "main/utils/useCurrentUser";
 
@@ -95,6 +98,7 @@ function App() {
         <>
           <Route exact path="/articles" element={<ArticlesIndexPage />} />
         </>
+        <Route exact path="/helprequest" element={<HelpRequestIndexPage />} />
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
@@ -107,6 +111,13 @@ function App() {
             exact
             path="/articles/create"
             element={<ArticlesCreatePage />}
+            path="/helprequest/create"
+            element={<HelpRequestCreatePage />}
+          />
+          <Route
+            exact
+            path="/helprequest/edit/:id"
+            element={<HelpRequestEditPage />}
           />
         </>
       )}
