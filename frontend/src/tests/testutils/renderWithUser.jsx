@@ -13,11 +13,9 @@ export function renderWithUser(
   });
   queryClient.setQueryData(["current user"], currentUser);
   queryClient.setQueryData(["systemInfo"], systemInfoFixtures.showingNeither);
-  const result = render(
   return render(
     <QueryClientProvider client={queryClient}>
       <MemoryRouter initialEntries={[route]}>{element}</MemoryRouter>
     </QueryClientProvider>,
   );
-  return { ...result, queryClient };
 }
