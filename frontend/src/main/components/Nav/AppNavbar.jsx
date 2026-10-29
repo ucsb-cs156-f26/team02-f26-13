@@ -1,4 +1,3 @@
-
 import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router";
 import { hasRole } from "main/utils/useCurrentUser";
@@ -72,12 +71,12 @@ export default function AppNavbar({
                     Placeholder
                   </Nav.Link>
 
-                  <Nav.Link as={Link} to="/menuitemreview">
-                    Menu Item Reviews
-                  </Nav.Link>
-
                   <Nav.Link as={Link} to="/diningcommonsmenuitem">
                     UCSB Dining Commons Menu Items
+                  </Nav.Link>
+
+                  <Nav.Link as={Link} to="/menuitemreview">
+                    Menu Item Reviews
                   </Nav.Link>
                 </>
               )}
