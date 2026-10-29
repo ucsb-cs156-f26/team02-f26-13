@@ -49,7 +49,7 @@ describe("UCSBOrganizationIndexPage tests", () => {
   test("Renders with Create Button for admin user", async () => {
     setupAdminUser();
     const queryClient = new QueryClient();
-    axiosMock.onGet("/api/ucsborganizations/all").reply(200, []);
+    axiosMock.onGet("/api/ucsborganization/all").reply(200, []);
 
     render(
       <QueryClientProvider client={queryClient}>
@@ -71,7 +71,7 @@ describe("UCSBOrganizationIndexPage tests", () => {
     setupUserOnly();
     const queryClient = new QueryClient();
     axiosMock
-      .onGet("/api/ucsborganizations/all")
+      .onGet("/api/ucsborganization/all")
       .reply(200, ucsbOrganizationsFixtures.threeOrganizations);
 
     render(
@@ -102,7 +102,7 @@ describe("UCSBOrganizationIndexPage tests", () => {
   test("renders empty table when backend unavailable, user only", async () => {
     setupUserOnly();
     const queryClient = new QueryClient();
-    axiosMock.onGet("/api/ucsborganizations/all").timeout();
+    axiosMock.onGet("/api/ucsborganization/all").timeout();
     const restoreConsole = mockConsole();
 
     render(
@@ -119,7 +119,7 @@ describe("UCSBOrganizationIndexPage tests", () => {
 
     const errorMessage = console.error.mock.calls[0][0];
     expect(errorMessage).toMatch(
-      "Error communicating with backend via GET on /api/ucsborganizations/all",
+      "Error communicating with backend via GET on /api/ucsborganization/all",
     );
     restoreConsole();
 
@@ -132,7 +132,7 @@ describe("UCSBOrganizationIndexPage tests", () => {
     setupAdminUser();
     const queryClient = new QueryClient();
     axiosMock
-      .onGet("/api/ucsborganizations/all")
+      .onGet("/api/ucsborganization/all")
       .reply(200, ucsbOrganizationsFixtures.threeOrganizations);
     axiosMock
       .onDelete("/api/ucsborganizations")
