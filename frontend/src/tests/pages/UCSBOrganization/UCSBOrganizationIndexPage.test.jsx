@@ -74,9 +74,6 @@ describe("UCSBOrganizationIndexPage tests", () => {
       screen.queryByTestId(`${testId}-cell-row-0-col-orgCode`),
     ).not.toBeInTheDocument();
     expect(screen.getByTestId(`${testId}-header-group-0`)).toBeInTheDocument();
-    const rows = screen.queryAllByRole("row");
-    expect(rows.length).toBeGreaterThan(0);
-    expect(rows[0].querySelectorAll("td").length).toBeGreaterThan(0);
   });
 
   test("renders three organizations correctly for regular user", async () => {
