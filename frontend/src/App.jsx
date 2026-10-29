@@ -126,15 +126,6 @@ function App() {
         <>
           <Route exact path="/articles" element={<ArticlesIndexPage />} />
         </>
-<<<<<<< HEAD
-=======
-        <Route exact path="/helprequest" element={<HelpRequestIndexPage />} />
-        <Route
-          exact
-          path="/diningcommonsmenuitem"
-          element={<UCSBDiningCommonsMenuItemIndexPage />}
-        />
->>>>>>> b0b6f2d5eb12463e380a564067a0821f4517fd99
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
@@ -159,21 +150,6 @@ function App() {
         <>
           <Route
             exact
-<<<<<<< HEAD
-=======
-            path="/diningcommonsmenuitem/edit/:id"
-            element={<UCSBDiningCommonsMenuItemEditPage />}
-          />
-        </>
-      )}
-      {hasRole(currentUser, "ROLE_USER") && (
-        <Route exact path="/helprequest" element={<HelpRequestIndexPage />} />
-      )}
-      {hasRole(currentUser, "ROLE_ADMIN") && (
-        <>
-          <Route
-            exact
->>>>>>> b0b6f2d5eb12463e380a564067a0821f4517fd99
             path="/helprequest/create"
             element={<HelpRequestCreatePage />}
           />

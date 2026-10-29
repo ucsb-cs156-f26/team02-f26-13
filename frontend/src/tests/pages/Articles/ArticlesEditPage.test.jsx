@@ -166,7 +166,7 @@ describe("ArticlesEditPage tests", () => {
       render(
         <QueryClientProvider client={queryClient}>
           <MemoryRouter>
-            <ArticlesEditPage/>
+            <ArticlesEditPage />
           </MemoryRouter>
         </QueryClientProvider>,
       );
@@ -218,6 +218,6 @@ describe("ArticlesEditPage tests", () => {
           dateAdded: "2022-04-19T00:00:00",
         }),
       ); // PUT body
-    });    
+    });
   });
 });
