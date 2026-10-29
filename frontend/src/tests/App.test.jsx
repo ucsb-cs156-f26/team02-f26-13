@@ -67,7 +67,7 @@ describe("HelpRequest routes", () => {
     fireEvent.click(screen.getByRole("button", { name: "Create HelpRequest" }));
     expect(
       await screen.findByRole("heading", {
-        name: "HelpRequest create page not yet implemented",
+        name: "Create New HelpRequest",
       }),
     ).toBeInTheDocument();
     fireEvent.click(screen.getByRole("link", { name: "HelpRequest" }));
