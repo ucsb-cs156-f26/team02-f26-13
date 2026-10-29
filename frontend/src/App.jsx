@@ -109,9 +109,8 @@ function App() {
             path="/diningcommonsmenuitem"
             element={<UCSBDiningCommonsMenuItemIndexPage />}
           />
+          <Route exact path="/helprequest" element={<HelpRequestIndexPage />} />
         </>
-      {hasRole(currentUser, "ROLE_USER") && (
-        <Route exact path="/helprequest" element={<HelpRequestIndexPage />} />
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
@@ -124,6 +123,9 @@ function App() {
             exact
             path="/diningcommonsmenuitem/edit/:id"
             element={<UCSBDiningCommonsMenuItemEditPage />}
+          />
+          <Route
+            exact
             path="/helprequest/create"
             element={<HelpRequestCreatePage />}
           />
