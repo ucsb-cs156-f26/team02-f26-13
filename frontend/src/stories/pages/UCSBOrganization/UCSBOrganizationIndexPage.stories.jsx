@@ -26,7 +26,7 @@ Empty.parameters = {
         status: 200,
       });
     }),
-    http.get("/api/ucsborganization/all", () => {
+    http.get("/api/ucsborganizations/all", () => {
       return HttpResponse.json([], { status: 200 });
     }),
   ],
@@ -42,7 +42,7 @@ ThreeItemsOrdinaryUser.parameters = {
     http.get("/api/systemInfo", () => {
       return HttpResponse.json(systemInfoFixtures.showingNeither);
     }),
-    http.get("/api/ucsborganization/all", () => {
+    http.get("/api/ucsborganizations/all", () => {
       return HttpResponse.json(ucsbOrganizationsFixtures.threeOrganizations);
     }),
   ],
@@ -58,7 +58,7 @@ ThreeItemsAdminUser.parameters = {
     http.get("/api/systemInfo", () => {
       return HttpResponse.json(systemInfoFixtures.showingNeither);
     }),
-    http.get("/api/ucsborganization/all", () => {
+    http.get("/api/ucsborganizations/all", () => {
       return HttpResponse.json(ucsbOrganizationsFixtures.threeOrganizations);
     }),
     http.delete("/api/ucsborganizations", () => {

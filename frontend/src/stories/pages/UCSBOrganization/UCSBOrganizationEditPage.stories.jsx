@@ -1,17 +1,17 @@
 import React from "react";
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
-import { ucsbOrganizationsFixtures } from "fixtures/ucsbOrganizationsFixtures";
+import { ucsbDatesFixtures } from "fixtures/ucsbDatesFixtures";
 import { http, HttpResponse } from "msw";
 
-import UCSBOrganizationEditPage from "main/pages/UCSBOrganization/UCSBOrganizationEditPage";
+import UCSBDatesEditPage from "main/pages/UCSBDates/UCSBDatesEditPage";
 
 export default {
-  title: "pages/UCSBOrganization/UCSBOrganizationEditPage",
-  component: UCSBOrganizationEditPage,
+  title: "pages/UCSBDates/UCSBDatesEditPage",
+  component: UCSBDatesEditPage,
 };
 
-const Template = () => <UCSBOrganizationEditPage storybook={true} />;
+const Template = () => <UCSBDatesEditPage storybook={true} />;
 
 export const Default = Template.bind({});
 Default.parameters = {
@@ -26,15 +26,12 @@ Default.parameters = {
         status: 200,
       });
     }),
-    http.get("/api/ucsborganization", () => {
-      return HttpResponse.json(
-        ucsbOrganizationsFixtures.threeOrganizations[0],
-        {
-          status: 200,
-        },
-      );
+    http.get("/api/ucsbdates", () => {
+      return HttpResponse.json(ucsbDatesFixtures.threeDates[0], {
+        status: 200,
+      });
     }),
-    http.put("/api/ucsborganization", () => {
+    http.put("/api/ucsbdates", () => {
       return HttpResponse.json({}, { status: 200 });
     }),
   ],
