@@ -76,6 +76,10 @@ describe("UCSBOrganizationIndexPage tests", () => {
     expect(
       screen.queryByTestId(`${testId}-cell-row-0-col-orgCode`),
     ).not.toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-header-group-0`)).toBeInTheDocument();
+    const rows = screen.queryAllByRole("row");
+    expect(rows.length).toBeGreaterThan(0);
+    expect(rows[0].querySelectorAll("td").length).toBeGreaterThan(0);
   });
 
   test("renders three organizations correctly for regular user", async () => {
@@ -203,5 +207,61 @@ describe("UCSBOrganizationIndexPage tests", () => {
     });
     expect(axiosMock.history.delete[0].url).toBe("/api/ucsborganizations");
     expect(axiosMock.history.delete[0].params).toEqual({ orgCode: "ZPR" });
+  });
+
+  test("initializes with empty data array when no backend mock", async () => {
+    setupAdminUser();
+    const queryClient = new QueryClient();
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <UCSBOrganizationIndexPage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    expect(screen.getByText(/Create UCSBOrganization/)).toBeInTheDocument();
+
+    expect(
+      screen.queryByTestId(`${testId}-cell-row-0-col-orgCode`),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId(`${testId}-cell-row-0-col-orgTranslationShort`),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId(`${testId}-cell-row-0-col-orgTranslation`),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId(`${testId}-cell-row-0-col-inactive`),
+    ).not.toBeInTheDocument();
+  });
+
+  test("renders empty table body when backend returns empty array", async () => {
+    setupAdminUser();
+    const queryClient = new QueryClient();
+    axiosMock.onGet("/api/ucsborganizations/all").reply(200, []);
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <UCSBOrganizationIndexPage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText(/Create UCSBOrganization/)).toBeInTheDocument();
+    });
+
+    expect(
+      screen.queryByTestId(`${testId}-cell-row-0-col-orgCode`),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId(`${testId}-cell-row-1-col-orgCode`),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId(`${testId}-cell-row-2-col-orgCode`),
+    ).not.toBeInTheDocument();
   });
 });
