@@ -1,52 +1,49 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import { useParams } from "react-router";
-import UCSBDateForm from "main/components/UCSBDates/UCSBDateForm";
+import UCSBOrganizationForm from "main/components/UCSBOrganization/UCSBOrganizationForm";
 import { Navigate } from "react-router";
 import { useBackend, useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
-export default function UCSBDatesEditPage({ storybook = false }) {
-  let { id } = useParams();
+export default function UCSBOrganizationEditPage({ storybook = false }) {
+  let { orgCode } = useParams();
 
   const {
-    data: ucsbDate,
+    data: ucsbOrganization,
     _error,
     _status,
   } = useBackend(
-    // Stryker disable next-line all : don't test internal caching of React Query
-    [`/api/ucsbdates?id=${id}`],
+    ["/api/ucsborganizations", { orgCode }],
     {
-      // Stryker disable next-line all : GET is the default, so changing this to "" doesn't introduce a bug
       method: "GET",
-      url: `/api/ucsbdates`,
+      url: `/api/ucsborganizations`,
       params: {
-        id,
+        orgCode,
       },
     },
   );
 
-  const objectToAxiosPutParams = (ucsbDate) => ({
-    url: "/api/ucsbdates",
+  const objectToAxiosPutParams = (ucsbOrganization) => ({
+    url: "/api/ucsborganizations",
     method: "PUT",
     params: {
-      id: ucsbDate.id,
+      orgCode: ucsbOrganization.orgCode,
     },
     data: {
-      quarterYYYYQ: ucsbDate.quarterYYYYQ,
-      name: ucsbDate.name,
-      localDateTime: ucsbDate.localDateTime,
+      orgTranslationShort: ucsbOrganization.orgTranslationShort,
+      orgTranslation: ucsbOrganization.orgTranslation,
+      inactive: ucsbOrganization.inactive,
     },
   });
 
-  const onSuccess = (ucsbDate) => {
-    toast(`UCSBDate Updated - id: ${ucsbDate.id} name: ${ucsbDate.name}`);
+  const onSuccess = (ucsbOrganization) => {
+    toast(`UCSBOrganization Updated - orgCode: ${ucsbOrganization.orgCode} name: ${ucsbOrganization.orgTranslationShort}`);
   };
 
   const mutation = useBackendMutation(
     objectToAxiosPutParams,
     { onSuccess },
-    // Stryker disable next-line all : hard to set up test for caching
-    [`/api/ucsbdates?id=${id}`],
+    ["/api/ucsborganizations", { orgCode }],
   );
 
   const { isSuccess } = mutation;
@@ -56,16 +53,16 @@ export default function UCSBDatesEditPage({ storybook = false }) {
   };
 
   if (isSuccess && !storybook) {
-    return <Navigate to="/ucsbdates" />;
+    return <Navigate to="/ucsborganization" />;
   }
 
   return (
     <BasicLayout>
       <div className="pt-2">
-        <h1>Edit UCSBDate</h1>
-        {ucsbDate && (
-          <UCSBDateForm
-            initialContents={ucsbDate}
+        <h1>Edit UCSBOrganization</h1>
+        {ucsbOrganization && (
+          <UCSBOrganizationForm
+            initialContents={ucsbOrganization}
             submitAction={onSubmit}
             buttonLabel="Update"
           />
@@ -74,3 +71,4 @@ export default function UCSBDatesEditPage({ storybook = false }) {
     </BasicLayout>
   );
 }
+

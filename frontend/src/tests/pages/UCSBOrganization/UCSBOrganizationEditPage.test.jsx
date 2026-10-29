@@ -1,7 +1,7 @@
 import { fireEvent, render, waitFor, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter } from "react-router";
-import UCSBDatesEditPage from "main/pages/UCSBDates/UCSBDatesEditPage";
+import UCSBOrganizationEditPage from "main/pages/UCSBOrganization/UCSBOrganizationEditPage";
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
@@ -26,7 +26,7 @@ vi.mock("react-router", async (importOriginal) => {
   return {
     ...originalModule,
     useParams: vi.fn(() => ({
-      id: 17,
+      orgCode: "ZPR",
     })),
     Navigate: vi.fn((x) => {
       mockNavigate(x);
@@ -36,7 +36,7 @@ vi.mock("react-router", async (importOriginal) => {
 });
 
 let axiosMock;
-describe("UCSBDatesEditPage tests", () => {
+describe("UCSBOrganizationEditPage tests", () => {
   describe("when the backend doesn't return data", () => {
     beforeEach(() => {
       axiosMock = new AxiosMockAdapter(axios);
@@ -46,7 +46,7 @@ describe("UCSBDatesEditPage tests", () => {
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock.onGet("/api/ucsbdates", { params: { id: 17 } }).timeout();
+      axiosMock.onGet("/api/ucsborganizations", { params: { orgCode: "ZPR" } }).timeout();
     });
 
     afterEach(() => {
@@ -57,21 +57,20 @@ describe("UCSBDatesEditPage tests", () => {
     });
 
     const queryClient = new QueryClient();
-    test("renders header but table is not present", async () => {
+    test("renders header but form is not present", async () => {
       const restoreConsole = mockConsole();
 
       render(
         <QueryClientProvider client={queryClient}>
           <MemoryRouter>
-            <UCSBDatesEditPage />
+            <UCSBOrganizationEditPage />
           </MemoryRouter>
         </QueryClientProvider>,
       );
 
-      await screen.findByText(/Welcome/);
-      await screen.findByText("Edit UCSBDate");
+      await screen.findByText("Edit UCSBOrganization");
       expect(
-        screen.queryByTestId("UCSBDateForm-quarterYYYYQ"),
+        screen.queryByTestId("UCSBOrganizationForm-orgCode"),
       ).not.toBeInTheDocument();
       restoreConsole();
     });
@@ -88,17 +87,17 @@ describe("UCSBDatesEditPage tests", () => {
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock.onGet("/api/ucsbdates", { params: { id: 17 } }).reply(200, {
-        id: 17,
-        quarterYYYYQ: "20221",
-        name: "Pi Day",
-        localDateTime: "2022-03-14T15:00",
+      axiosMock.onGet("/api/ucsborganizations", { params: { orgCode: "ZPR" } }).reply(200, {
+        orgCode: "ZPR",
+        orgTranslationShort: "ZETA PHI RHO",
+        orgTranslation: "ZETA PHI RHO",
+        inactive: false,
       });
-      axiosMock.onPut("/api/ucsbdates").reply(200, {
-        id: "17",
-        quarterYYYYQ: "20224",
-        name: "Christmas Morning",
-        localDateTime: "2022-12-25T08:00",
+      axiosMock.onPut("/api/ucsborganizations").reply(200, {
+        orgCode: "ZPR",
+        orgTranslationShort: "ZETA PHI RHO UPDATED",
+        orgTranslation: "ZETA PHI RHO UPDATED",
+        inactive: true,
       });
     });
 
@@ -114,14 +113,14 @@ describe("UCSBDatesEditPage tests", () => {
       render(
         <QueryClientProvider client={queryClient}>
           <MemoryRouter>
-            <UCSBDatesEditPage />
+            <UCSBOrganizationEditPage />
           </MemoryRouter>
         </QueryClientProvider>,
       );
-      await screen.findByText(/Welcome/);
-      await screen.findByTestId("UCSBDateForm-quarterYYYYQ");
+      await screen.findByText("Edit UCSBOrganization");
+      await screen.findByTestId("UCSBOrganizationForm-orgCode");
       expect(
-        screen.getByTestId("UCSBDateForm-quarterYYYYQ"),
+        screen.getByTestId("UCSBOrganizationForm-orgCode"),
       ).toBeInTheDocument();
     });
 
@@ -129,25 +128,29 @@ describe("UCSBDatesEditPage tests", () => {
       render(
         <QueryClientProvider client={queryClient}>
           <MemoryRouter>
-            <UCSBDatesEditPage />
+            <UCSBOrganizationEditPage />
           </MemoryRouter>
         </QueryClientProvider>,
       );
 
-      await screen.findByTestId("UCSBDateForm-quarterYYYYQ");
+      await screen.findByTestId("UCSBOrganizationForm-orgCode");
 
-      const idField = screen.getByTestId("UCSBDateForm-id");
-      const quarterYYYYQField = screen.getByTestId("UCSBDateForm-quarterYYYYQ");
-      const nameField = screen.getByTestId("UCSBDateForm-name");
-      const localDateTimeField = screen.getByTestId(
-        "UCSBDateForm-localDateTime",
+      const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
+      const orgTranslationShortField = screen.getByTestId(
+        "UCSBOrganizationForm-orgTranslationShort",
       );
-      const submitButton = screen.getByTestId("UCSBDateForm-submit");
+      const orgTranslationField = screen.getByTestId(
+        "UCSBOrganizationForm-orgTranslation",
+      );
+      const inactiveField = screen.getByTestId(
+        "UCSBOrganizationForm-inactive",
+      );
+      const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
 
-      expect(idField).toHaveValue("17");
-      expect(quarterYYYYQField).toHaveValue("20221");
-      expect(nameField).toHaveValue("Pi Day");
-      expect(localDateTimeField).toHaveValue("2022-03-14T15:00");
+      expect(orgCodeField).toHaveValue("ZPR");
+      expect(orgTranslationShortField).toHaveValue("ZETA PHI RHO");
+      expect(orgTranslationField).toHaveValue("ZETA PHI RHO");
+      expect(inactiveField).not.toBeChecked();
       expect(submitButton).toBeInTheDocument();
     });
 
@@ -155,51 +158,74 @@ describe("UCSBDatesEditPage tests", () => {
       render(
         <QueryClientProvider client={queryClient}>
           <MemoryRouter>
-            <UCSBDatesEditPage />
+            <UCSBOrganizationEditPage />
           </MemoryRouter>
         </QueryClientProvider>,
       );
 
-      await screen.findByTestId("UCSBDateForm-quarterYYYYQ");
+      await screen.findByTestId("UCSBOrganizationForm-orgCode");
 
-      const idField = screen.getByTestId("UCSBDateForm-id");
-      const quarterYYYYQField = screen.getByTestId("UCSBDateForm-quarterYYYYQ");
-      const nameField = screen.getByTestId("UCSBDateForm-name");
-      const localDateTimeField = screen.getByTestId(
-        "UCSBDateForm-localDateTime",
+      const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
+      const orgTranslationShortField = screen.getByTestId(
+        "UCSBOrganizationForm-orgTranslationShort",
       );
-      const submitButton = screen.getByTestId("UCSBDateForm-submit");
+      const orgTranslationField = screen.getByTestId(
+        "UCSBOrganizationForm-orgTranslation",
+      );
+      const inactiveField = screen.getByTestId(
+        "UCSBOrganizationForm-inactive",
+      );
+      const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
 
-      expect(idField).toHaveValue("17");
-      expect(quarterYYYYQField).toHaveValue("20221");
-      expect(nameField).toHaveValue("Pi Day");
-      expect(localDateTimeField).toHaveValue("2022-03-14T15:00");
+      expect(orgCodeField).toHaveValue("ZPR");
+      expect(orgTranslationShortField).toHaveValue("ZETA PHI RHO");
+      expect(orgTranslationField).toHaveValue("ZETA PHI RHO");
+      expect(inactiveField).not.toBeChecked();
 
       expect(submitButton).toBeInTheDocument();
 
-      fireEvent.change(quarterYYYYQField, { target: { value: "20224" } });
-      fireEvent.change(nameField, { target: { value: "Christmas Morning" } });
-      fireEvent.change(localDateTimeField, {
-        target: { value: "2022-12-25T08:00" },
+      fireEvent.change(orgTranslationShortField, {
+        target: { value: "ZETA PHI RHO UPDATED" },
       });
+      fireEvent.change(orgTranslationField, {
+        target: { value: "ZETA PHI RHO UPDATED" },
+      });
+      fireEvent.click(inactiveField);
 
       fireEvent.click(submitButton);
 
       await waitFor(() => expect(mockToast).toBeCalled());
       expect(mockToast).toBeCalledWith(
-        "UCSBDate Updated - id: 17 name: Christmas Morning",
+        "UCSBOrganization Updated - orgCode: ZPR name: ZETA PHI RHO UPDATED",
       );
-      expect(mockNavigate).toBeCalledWith({ to: "/ucsbdates" });
+      expect(mockNavigate).toBeCalledWith({ to: "/ucsborganizations" });
 
-      expect(axiosMock.history.put.length).toBe(1); // times called
-      expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
+      expect(axiosMock.history.put.length).toBe(1);
+      expect(axiosMock.history.put[0].params).toEqual({ orgCode: "ZPR" });
       expect(axiosMock.history.put[0].data).toBe(
         JSON.stringify({
-          quarterYYYYQ: "20224",
-          name: "Christmas Morning",
-          localDateTime: "2022-12-25T08:00",
+          orgTranslationShort: "ZETA PHI RHO UPDATED",
+          orgTranslation: "ZETA PHI RHO UPDATED",
+          inactive: true,
         }),
-      ); // posted object
+      );
+    });
+
+    test("Cancel button navigates back", async () => {
+      render(
+        <QueryClientProvider client={queryClient}>
+          <MemoryRouter>
+            <UCSBOrganizationEditPage />
+          </MemoryRouter>
+        </QueryClientProvider>,
+      );
+
+      await screen.findByTestId("UCSBOrganizationForm-orgCode");
+
+      const cancelButton = screen.getByTestId("UCSBOrganizationForm-cancel");
+      fireEvent.click(cancelButton);
+
+      expect(mockNavigate).toBeCalledWith(-1);
     });
   });
 });
