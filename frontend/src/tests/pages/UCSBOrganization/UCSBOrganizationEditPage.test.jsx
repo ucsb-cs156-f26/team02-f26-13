@@ -46,7 +46,9 @@ describe("UCSBOrganizationEditPage tests", () => {
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock.onGet("/api/ucsborganizations", { params: { orgCode: "ZPR" } }).timeout();
+      axiosMock
+        .onGet("/api/ucsborganizations", { params: { orgCode: "ZPR" } })
+        .timeout();
     });
 
     afterEach(() => {
@@ -87,12 +89,14 @@ describe("UCSBOrganizationEditPage tests", () => {
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock.onGet("/api/ucsborganizations", { params: { orgCode: "ZPR" } }).reply(200, {
-        orgCode: "ZPR",
-        orgTranslationShort: "ZETA PHI RHO",
-        orgTranslation: "ZETA PHI RHO",
-        inactive: false,
-      });
+      axiosMock
+        .onGet("/api/ucsborganizations", { params: { orgCode: "ZPR" } })
+        .reply(200, {
+          orgCode: "ZPR",
+          orgTranslationShort: "ZETA PHI RHO",
+          orgTranslation: "ZETA PHI RHO",
+          inactive: false,
+        });
       axiosMock.onPut("/api/ucsborganizations").reply(200, {
         orgCode: "ZPR",
         orgTranslationShort: "ZETA PHI RHO UPDATED",
@@ -142,9 +146,7 @@ describe("UCSBOrganizationEditPage tests", () => {
       const orgTranslationField = screen.getByTestId(
         "UCSBOrganizationForm-orgTranslation",
       );
-      const inactiveField = screen.getByTestId(
-        "UCSBOrganizationForm-inactive",
-      );
+      const inactiveField = screen.getByTestId("UCSBOrganizationForm-inactive");
       const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
 
       expect(orgCodeField).toHaveValue("ZPR");
@@ -172,9 +174,7 @@ describe("UCSBOrganizationEditPage tests", () => {
       const orgTranslationField = screen.getByTestId(
         "UCSBOrganizationForm-orgTranslation",
       );
-      const inactiveField = screen.getByTestId(
-        "UCSBOrganizationForm-inactive",
-      );
+      const inactiveField = screen.getByTestId("UCSBOrganizationForm-inactive");
       const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
 
       expect(orgCodeField).toHaveValue("ZPR");
