@@ -20,14 +20,12 @@ describe("UCSBOrganizationTable tests", () => {
   const queryClient = new QueryClient();
 
   const expectedHeaders = [
-    "id",
     "Org Code",
     "Short Translation",
     "Translation",
     "Inactive",
   ];
   const expectedFields = [
-    "id",
     "orgCode",
     "orgTranslationShort",
     "orgTranslation",
@@ -83,16 +81,13 @@ describe("UCSBOrganizationTable tests", () => {
       expect(header).toBeInTheDocument();
     });
 
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
-      "1",
-    );
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-orgCode`),
     ).toHaveTextContent("ZPR");
 
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
-      "2",
-    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-1-col-orgCode`),
+    ).toHaveTextContent("SKY");
 
     const editButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Edit-button`,
@@ -131,16 +126,13 @@ describe("UCSBOrganizationTable tests", () => {
       expect(header).toBeInTheDocument();
     });
 
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
-      "1",
-    );
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-orgCode`),
     ).toHaveTextContent("ZPR");
 
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
-      "2",
-    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-1-col-orgCode`),
+    ).toHaveTextContent("SKY");
 
     expect(screen.queryByText("Delete")).not.toBeInTheDocument();
     expect(screen.queryByText("Edit")).not.toBeInTheDocument();
@@ -161,10 +153,7 @@ describe("UCSBOrganizationTable tests", () => {
     );
 
     expect(
-      await screen.findByTestId(`${testId}-cell-row-0-col-id`),
-    ).toHaveTextContent("1");
-    expect(
-      screen.getByTestId(`${testId}-cell-row-0-col-orgCode`),
+      await screen.findByTestId(`${testId}-cell-row-0-col-orgCode`),
     ).toHaveTextContent("ZPR");
 
     const editButton = screen.getByTestId(
@@ -175,7 +164,7 @@ describe("UCSBOrganizationTable tests", () => {
     fireEvent.click(editButton);
 
     await waitFor(() =>
-      expect(mockedNavigate).toHaveBeenCalledWith("/ucsborganization/edit/1"),
+      expect(mockedNavigate).toHaveBeenCalledWith("/ucsborganization/edit/ZPR"),
     );
   });
 
@@ -184,7 +173,7 @@ describe("UCSBOrganizationTable tests", () => {
 
     const axiosMock = new AxiosMockAdapter(axios);
     axiosMock
-      .onDelete("/api/ucsborganization")
+      .onDelete("/api/ucsborganizations")
       .reply(200, { message: "Organization deleted" });
 
     render(
@@ -199,10 +188,7 @@ describe("UCSBOrganizationTable tests", () => {
     );
 
     expect(
-      await screen.findByTestId(`${testId}-cell-row-0-col-id`),
-    ).toHaveTextContent("1");
-    expect(
-      screen.getByTestId(`${testId}-cell-row-0-col-orgCode`),
+      await screen.findByTestId(`${testId}-cell-row-0-col-orgCode`),
     ).toHaveTextContent("ZPR");
 
     const deleteButton = screen.getByTestId(
@@ -213,6 +199,6 @@ describe("UCSBOrganizationTable tests", () => {
     fireEvent.click(deleteButton);
 
     await waitFor(() => expect(axiosMock.history.delete.length).toBe(1));
-    expect(axiosMock.history.delete[0].params).toEqual({ id: 1 });
+    expect(axiosMock.history.delete[0].params).toEqual({ orgCode: "ZPR" });
   });
 });
