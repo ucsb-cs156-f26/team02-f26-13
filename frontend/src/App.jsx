@@ -146,6 +146,16 @@ function App() {
           />
           <Route
             exact
+            path="/recommendationRequest/edit/:id"
+            element={<RecommendationRequestEditPage />}
+          />
+          <Route
+            exact
+            path="/recommendationRequest/create"
+            element={<RecommendationRequestCreatePage />}
+          />
+          <Route
+            exact
             path="/helprequest/create"
             element={<HelpRequestCreatePage />}
           />
