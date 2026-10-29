@@ -103,14 +103,14 @@ describe("RecommendationRequestTable tests", () => {
     );
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-requesterEmail`),
-    ).toHaveTextContent("req@ucsb.edu?");
+    ).toHaveTextContent("req@ucsb.edu");
 
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
       "2",
     );
     expect(
       screen.getByTestId(`${testId}-cell-row-1-col-requesterEmail`),
-    ).toHaveTextContent("req@ucsb.edu?");
+    ).toHaveTextContent("req@ucsb.edu");
 
     const editButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Edit-button`,
@@ -159,14 +159,14 @@ describe("RecommendationRequestTable tests", () => {
     );
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-requesterEmail`),
-    ).toHaveTextContent("req@ucsb.edu?");
+    ).toHaveTextContent("req@ucsb.edu");
 
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
       "2",
     );
     expect(
       screen.getByTestId(`${testId}-cell-row-1-col-requesterEmail`),
-    ).toHaveTextContent("req@ucsb.edu?");
+    ).toHaveTextContent("req@ucsb.edu");
 
     expect(screen.queryByText("Delete")).not.toBeInTheDocument();
     expect(screen.queryByText("Edit")).not.toBeInTheDocument();
@@ -196,7 +196,7 @@ describe("RecommendationRequestTable tests", () => {
     ).toHaveTextContent("1");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-requesterEmail`),
-    ).toHaveTextContent("req@ucsb.edu?");
+    ).toHaveTextContent("req@ucsb.edu");
 
     const editButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Edit-button`,
@@ -243,7 +243,7 @@ describe("RecommendationRequestTable tests", () => {
     ).toHaveTextContent("1");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-requesterEmail`),
-    ).toHaveTextContent("req@ucsb.edu?");
+    ).toHaveTextContent("req@ucsb.edu");
 
     const deleteButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Delete-button`,

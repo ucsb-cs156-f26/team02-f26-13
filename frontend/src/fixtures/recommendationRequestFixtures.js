@@ -1,8 +1,8 @@
 const recommendationRequestFixtures = {
   oneRecommendationRequest: {
     id: 1,
-    requesterEmail: "req@ucsb.edu?",
-    professorEmail: "prof@ucsb,edu",
+    requesterEmail: "req@ucsb.edu",
+    professorEmail: "prof@ucsb.edu",
     explanation: "i might be quite homeless",
     dateRequested: "2022-04-03T12:00:00",
     dateNeeded: "2022-04-03T12:00:00",
@@ -11,8 +11,8 @@ const recommendationRequestFixtures = {
   threeRecommendationRequests: [
     {
       id: 1,
-      requesterEmail: "req@ucsb.edu?",
-      professorEmail: "prof@ucsb,edu",
+      requesterEmail: "req@ucsb.edu",
+      professorEmail: "prof@ucsb.edu",
       explanation: "i might be quite homeless",
       dateRequested: "2022-04-03T12:00:00",
       dateNeeded: "2022-04-03T12:00:00",
@@ -20,8 +20,8 @@ const recommendationRequestFixtures = {
     },
     {
       id: 2,
-      requesterEmail: "req@ucsb.edu?",
-      professorEmail: "prof@ucsb,edu",
+      requesterEmail: "req@ucsb.edu",
+      professorEmail: "prof@ucsb.edu",
       explanation: "i might be quite homeless",
       dateRequested: "2022-04-03T12:00:00",
       dateNeeded: "2022-04-03T12:00:00",
@@ -29,8 +29,8 @@ const recommendationRequestFixtures = {
     },
     {
       id: 3,
-      requesterEmail: "req@ucsb.edu?",
-      professorEmail: "prof@ucsb,edu",
+      requesterEmail: "req@ucsb.edu",
+      professorEmail: "prof@ucsb.edu",
       explanation: "i might be quite homeless",
       dateRequested: "2022-04-03T12:00:00",
       dateNeeded: "2022-04-03T12:00:00",
