@@ -30,13 +30,13 @@ export default function MenuItemReviewEditPage({ storybook = false }) {
     params: {
       id: menuItemReview.id,
     },
-    data: JSON.stringify({
+    data: {
       itemId: Number(menuItemReview.itemId),
       reviewerEmail: menuItemReview.reviewerEmail,
       stars: Number(menuItemReview.stars),
       dateReviewed: menuItemReview.dateReviewed,
       comments: menuItemReview.comments,
-    }),
+    },
   });
 
   const onSuccess = (menuItemReview) => {
