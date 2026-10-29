@@ -113,7 +113,7 @@ describe("ArticlesCreatePage tests", () => {
 
     await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
 
-    expect(axiosMock.history.post[0].data).toEqual({
+    expect(axiosMock.history.post[0].params).toEqual({
       title: "Using testing-playground with React Testing Library",
       url: "https://dev.to/katieraby/using-testing-playground-with-react-testing-library-26j7",
       explanation: "Helpful when we get to front end development",
