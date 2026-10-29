@@ -6,9 +6,31 @@ import { currentUserFixtures } from "fixtures/currentUserFixtures";
 import AppNavbar from "main/components/Nav/AppNavbar";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import { expect } from "vitest";
+import { renderWithUser } from "tests/testutils/renderWithUser";
 
 describe("AppNavbar tests", () => {
   const queryClient = new QueryClient();
+
+  test.each([
+    ["ordinary user", currentUserFixtures.userOnly],
+    ["admin", currentUserFixtures.adminUser],
+  ])("shows the HelpRequest link for %s", (_name, currentUser) => {
+    renderWithUser(<AppNavbar currentUser={currentUser} />);
+    expect(screen.getByRole("link", { name: "HelpRequest" })).toHaveAttribute(
+      "href",
+      "/helprequest",
+    );
+  });
+
+  test.each([currentUserFixtures.notLoggedIn, null])(
+    "hides the HelpRequest link when logged out",
+    (currentUser) => {
+      renderWithUser(<AppNavbar currentUser={currentUser} />);
+      expect(
+        screen.queryByRole("link", { name: "HelpRequest" }),
+      ).not.toBeInTheDocument();
+    },
+  );
 
   test("renders correctly for regular logged in user", async () => {
     const currentUser = currentUserFixtures.userOnly;
@@ -169,6 +191,20 @@ describe("AppNavbar tests", () => {
     expect(link.getAttribute("href")).toBe("/ucsbdates");
   });
 
+  test("renders the Dining Commons menu item link for logged-in users", () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar currentUser={currentUserFixtures.userOnly} />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    expect(
+      screen.getByRole("link", { name: "UCSBDiningCommonsMenuItem" }),
+    ).toHaveAttribute("href", "/diningcommonsmenuitem");
+  });
+
   test("renders the restaurants link correctly", async () => {
     const currentUser = currentUserFixtures.userOnly;
     const systemInfo = systemInfoFixtures.showingBoth;
@@ -211,6 +247,9 @@ describe("AppNavbar tests", () => {
     );
 
     expect(screen.queryByText("Restaurants")).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("UCSBDiningCommonsMenuItem"),
+    ).not.toBeInTheDocument();
     expect(screen.queryByText("UCSBDates")).not.toBeInTheDocument();
   });
 
