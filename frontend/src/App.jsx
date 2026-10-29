@@ -5,7 +5,7 @@ import AdminUsersPage from "main/pages/AdminUsersPage";
 
 import RestaurantsIndexPage from "main/pages/Restaurants/RestaurantsIndexPage";
 import RestaurantsCreatePage from "main/pages/Restaurants/RestaurantsCreatePage";
-import RestaurantsEditPage from "main/pages/Restaurants/RestaurantsEditPage";
+
 
 import UCSBDatesIndexPage from "main/pages/UCSBDates/UCSBDatesIndexPage";
 import UCSBDatesCreatePage from "main/pages/UCSBDates/UCSBDatesCreatePage";
@@ -29,7 +29,6 @@ import MenuItemReviewEditPage from "main/pages/MenuItemReview/MenuItemReviewEdit
 
 import { useCurrentUser, hasRole } from "main/utils/useCurrentUser";
 
-
 export default function App() {
   const { data: currentUser } = useCurrentUser();
 
@@ -45,15 +44,6 @@ export default function App() {
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
             <Route exact path="/admin/users" element={<AdminUsersPage />} />
-          </>
-        )}
-        {hasRole(currentUser, "ROLE_USER") && (
-          <>
-            <Route
-              exact
-              path="/restaurants"
-              element={<RestaurantsIndexPage />}
-            />
           </>
         )}
         {hasRole(currentUser, "ROLE_ADMIN") && (
