@@ -50,6 +50,7 @@ describe("UCSBOrganizationIndexPage tests", () => {
 
   test("Renders with Create Button for admin user", async () => {
     setupAdminUser();
+    const queryClient = new QueryClient();
     axiosMock.onGet("/api/ucsborganizations/all").reply(200, []);
 
     render(
@@ -72,6 +73,9 @@ describe("UCSBOrganizationIndexPage tests", () => {
     expect(
       screen.getByTestId("UCSBOrganizationTable-header-orgCode"),
     ).toBeInTheDocument();
+    expect(
+      screen.queryByTestId(`${testId}-cell-row-0-col-orgCode`),
+    ).not.toBeInTheDocument();
   });
 
   test("renders three organizations correctly for regular user", async () => {
