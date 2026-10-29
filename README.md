@@ -1,11 +1,11 @@
 # team02-f26-13
 
-Instructions: <https://ucsb-cs156.github.io/s26/lab/team02.html>
+Instructions: <https://ucsb-cs156.github.io/f26/lab/team02.html>
 
 Deployments:
 
-* Prod: <https://team02.dokku-13.cs.ucsb.edu>
-* QA: <https://team02-qa.dokku-13.cs.ucsb.edu>
+* Prod: <https://team02-f26-13.dokku-13.cs.ucsb.edu>
+* QA: <https://team02-f26-13-qa.dokku-13.cs.ucsb.edu>
 
 | Table                     | Name         | Github Id    |
 |---------------------------|--------------|--------------|

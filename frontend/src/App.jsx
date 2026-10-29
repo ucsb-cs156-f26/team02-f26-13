@@ -103,14 +103,11 @@ function App() {
       )}
 
       {hasRole(currentUser, "ROLE_USER") && (
-        <>
-          <Route
-            exact
-            path="/diningcommonsmenuitem"
-            element={<UCSBDiningCommonsMenuItemIndexPage />}
-          />
-          <Route exact path="/helprequest" element={<HelpRequestIndexPage />} />
-        </>
+        <Route
+          exact
+          path="/diningcommonsmenuitem"
+          element={<UCSBDiningCommonsMenuItemIndexPage />}
+        />
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
@@ -124,6 +121,13 @@ function App() {
             path="/diningcommonsmenuitem/edit/:id"
             element={<UCSBDiningCommonsMenuItemEditPage />}
           />
+        </>
+      )}
+      {hasRole(currentUser, "ROLE_USER") && (
+        <Route exact path="/helprequest" element={<HelpRequestIndexPage />} />
+      )}
+      {hasRole(currentUser, "ROLE_ADMIN") && (
+        <>
           <Route
             exact
             path="/helprequest/create"
