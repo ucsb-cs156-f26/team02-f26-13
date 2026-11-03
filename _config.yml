@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f26/team02-f26-13
 owner: ucsb-cs156-f26
 repo_name: team02-f26-13
-pull_requests: [{"author":{"id":"U_kgDODhuopw","is_bot":false,"login":"AlexPeroulas","name":"Alexander Peroulas"},"headRefName":"Alex-jpa04-MenuItemReview-e2e","number":136,"title":"added menu item review e2e test for admin user can create menuitem re…","url":"https://github.com/ucsb-cs156-f26/team02-f26-13/pull/136"}]
+pull_requests: []
