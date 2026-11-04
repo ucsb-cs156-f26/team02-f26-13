@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f26/team02-f26-13
 owner: ucsb-cs156-f26
 repo_name: team02-f26-13
-pull_requests: [{"author":{"id":"U_kgDODg22tw","is_bot":false,"login":"bcttang","name":""},"headRefName":"bt-jpa04v2","number":140,"title":"Bt jpa04v2","url":"https://github.com/ucsb-cs156-f26/team02-f26-13/pull/140"},{"author":{"id":"U_kgDODg22tw","is_bot":false,"login":"bcttang","name":""},"headRefName":"bt-jpa04","number":139,"title":"bt - Create integration tests for Recommendation Requests","url":"https://github.com/ucsb-cs156-f26/team02-f26-13/pull/139"}]
+pull_requests: []
